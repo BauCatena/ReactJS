@@ -8,7 +8,7 @@ const productManager = new ProductManager()
 const app = express()
 //Iniciar server
 app.listen(8080, () => {
-    console.log("Servidor funcionando")
+    console.log("Servidor activo")
 })
 //Declarar middleware
 app.use(express.json())
