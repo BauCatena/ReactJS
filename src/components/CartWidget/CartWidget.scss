@@ -1,0 +1,19 @@
+@import "/src/vars/vars";
+.nav-container{
+    .nav{
+        @include flex-row;
+        justify-content: space-around;
+        margin-bottom: 1.4rem;
+
+    }
+    .nav-element{
+        font-size: 1.3rem;
+        background-color: $gold;
+        color: $gray;
+        padding: 0.6rem;
+        border-radius: 5%;
+        &:hover{
+            background-color: $light-gold;
+        }
+    }
+}

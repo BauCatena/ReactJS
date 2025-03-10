@@ -1,0 +1,52 @@
+$light-gold: #f6e5b3;
+$gold:  #c4a767;
+$gray:  #151515;
+$light-gray: #a4a4a4;
+
+@mixin flex-row{
+    display: flex;
+    flex-direction: row;
+}
+@mixin flex-column{
+    display: flex;
+    flex-direction: column;
+}
+@mixin center{
+    align-items: center;
+    justify-content: center;
+}
+.flex-column{
+    display: flex;
+    flex-direction: column;
+}
+.flex-row{
+    display: flex;
+    flex-direction: row;
+}
+.center{
+    align-items: center;
+    justify-content: center;
+}
+a{
+    text-decoration: none;
+    color: $light-gray;
+    transition: all 200ms ease;
+}
+a:hover{
+    color: $light-gold;
+}
+.icon{
+    width: 8rem;
+    border-radius: 100%;
+}
+.heading{
+    text-align: center;
+    font-size: 2.5rem;
+    color: $light-gray;
+}
+p{
+    color: $light-gray;
+}
+li{
+    list-style: none;
+}
