@@ -1,7 +1,7 @@
 import "./notFound.scss"
 import { Link } from "react-router"
 
-function notFound(){
+function NotFound(){
     return(
         <div className="error-container">
             <div className="brutalist-card">
@@ -23,4 +23,4 @@ function notFound(){
         </div>
     )
 }
-export default notFound
+export default NotFound

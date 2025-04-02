@@ -1,44 +1,67 @@
-import "./ItemListContainer.scss"
-import ProductCard from "../productCard/productsCard"
- import {useState, useEffect} from "react"
-import { fetchData } from "../../fetchData"
-import Loader from "../loader/loader"
+    import "./ItemListContainer.scss"
+    import ProductCard from "../productCard/productsCard"
+    import {useState, useEffect} from "react"
+    import { fetchData } from "../../fetchData"
+    import Loader from "../loader/loader"
+    import CategoryFilter from "../categoryFilter/categoryFilter"
+    import { useParams } from "react-router"
 
-function ItemListContainer(){
+    function ItemListContainer(){
 
-    const [loading, isLoading] = useState(true)
-    const [allProducts, setAllProducts] = useState(null)
+        const [loading, isLoading] = useState(true)
+        const [allProducts, setAllProducts] = useState(null)
+        const [allCategories, setAllCategories] = useState(null)
 
-    useEffect(() => {
-        fetchData()
-         .then(response => {
-            setAllProducts(response)
-          })
-          .catch(err => console.error(err));
-      })
-    useEffect(() =>{
-        setTimeout(() => {
-            isLoading(false)
-        }, 2500);
-    })
+        const { category } = useParams()
 
+        useEffect(() => {
+            if(!allProducts){
+                fetchData()
+                .then(response => {
+                setAllProducts(response)
+                const categories = [...new Set(response.map(product => product.category))]
+                    setAllCategories(categories)
+                setTimeout(() => {
+                    isLoading(false)
+                }, 500)
+                
+                })
+                .catch(err => console.error(err))
+            }
+            },)
+    
+        return(
+            loading ?
+            <div className="loader-container">
+                <Loader/>
+            </div>
+            :
+                <>
+                    <div className="main-products">
+                    <CategoryFilter allCategories={allCategories} />
+                    <div className="product-container">
+                    {
+                        category ?
 
-    return(
-        loading ?
-        <div className="loader-container">
-            <Loader/>
-        </div>
-        :
-            <div className="product-container">
-                {
-                allProducts.map(el => {
-                    return(
-                        <ProductCard key={el.id} product={el}/>
-                        )
-                    })
-                    }
-            </div>  
-    )
-}
+                        allProducts.filter(el => el.category === category).map(el => {
+                            return(
+                                <ProductCard key={el.id} product={el}/>
+                            )
+                        })
+                        :
+                        <>
+                            {
+                                allProducts.map(el => {
+                                return(
+                                    <ProductCard key={el.id} product={el}/>
+                                )
+                                })
+                            }
+                        </>
+                    }</div>
+                    </div>
+                </> 
+        )
+    }
 
-export default ItemListContainer
+    export default ItemListContainer

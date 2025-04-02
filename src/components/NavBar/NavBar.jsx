@@ -7,19 +7,13 @@ function NavBar(){
     return(
     <header className="header">
         <div className="header-container">
-        <div className="flex-row">
-            <label className="bar" for="check">
-                <input className="menu" type="checkbox" id="check"/>
-                <div id="modalMenu" className="modal-menu">
-                    <div className="menu-content">
-                        <a href="./html/account.html">Mi Cuenta</a>
-                        <a href="">Catálogo</a>
-                    </div>
-                </div>
-                <span className="top"></span>
-                <span className="middle"></span>
-                <span className="bottom"></span>
-            </label>
+        <div className="flex-row center">
+        <label class="burger" for="burger">
+            <input type="checkbox" id="burger" />
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
             <div className="account-container">
                 <a className="icon" href="./html/account.html"><img src="" alt="cuenta"/></a>
                 <div className="logo-container">
@@ -29,7 +23,7 @@ function NavBar(){
             </div>
         </div>
         <div className="logo-container">
-            <img className="icon" src="src/assets/logo0.png" alt="logo"/>
+            <img className="icon" src="/src/assets/logo0.png" alt="logo"/>
             <p className="heading">CIRCOLO NERO</p>
         </div>
         <div> 

@@ -1,4 +1,4 @@
-import {products} from "./products"
+import {products} from "./products.js"
 
 
 export const fetchData = () => new Promise((resolve,) => {
