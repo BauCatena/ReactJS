@@ -1,0 +1,38 @@
+export const products = [
+    {
+        id: 1,
+        name: "Monitor",
+        price: 100,
+        type: "computadora",
+        stock: 10,
+        description: "El mejor monitor del mundo",
+        img: "src/assets/null.png",
+    },
+    {
+        id: 2,
+        name: "Teclado",
+        price: 70,
+        type: "computadora",
+        stock: 12,
+        description: "Es mecánico",
+        img: "src/assets/null.png",
+    },
+    {
+        id: 3,
+        name: "Funda de celular de Bokita",
+        price: 120,
+        type: "celular",
+        stock: 15,
+        description: "Esta funda es muy grande",
+        img: "src/assets/null.png",
+    },
+    {
+        id: 4,
+        name: "Funda de celular de River",
+        price: 120,
+        type: "celular",
+        stock: 15,
+        description: "Funda solo apta para millonarios",
+        img: "src/assets/null.png",
+    },
+];

@@ -1,6 +1,7 @@
 import "./NavBar.scss"
 import CartWidget from "../CartWidget/CartWidget"
 
+
 function NavBar(){
 
     return(
@@ -11,7 +12,6 @@ function NavBar(){
                 <input className="menu" type="checkbox" id="check"/>
                 <div id="modalMenu" className="modal-menu">
                     <div className="menu-content">
-                        <a>Inicio</a>
                         <a href="./html/account.html">Mi Cuenta</a>
                         <a href="">Catálogo</a>
                     </div>

@@ -1,1 +1,14 @@
 @import "/src/vars/vars";
+
+.loader-container{
+    width: 100%;
+    padding-top: 10%;
+    display: flex;
+    @include center;
+}
+.product-container{
+    @include flex-row;
+    width: 100%;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
