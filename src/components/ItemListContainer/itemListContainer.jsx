@@ -1,67 +1,47 @@
-    import "./ItemListContainer.scss"
-    import ProductCard from "../productCard/productsCard"
-    import {useState, useEffect} from "react"
-    import { fetchData } from "../../fetchData"
-    import Loader from "../loader/loader"
-    import CategoryFilter from "../categoryFilter/categoryFilter"
-    import { useParams } from "react-router"
+import "./ItemListContainer.scss";
+import ProductCard from "../productCard/productsCard";
+import { useState, useEffect } from "react";
+import Loader from "../loader/loader";
+import CategoryFilter from "../categoryFilter/categoryFilter";
+import { useParams } from "react-router";
+import { useAppContext } from "../../context/context";
 
-    function ItemListContainer(){
+function ItemListContainer() {
+    const { data: allProducts } = useAppContext();
+    const loading = !allProducts;
 
-        const [loading, isLoading] = useState(true)
-        const [allProducts, setAllProducts] = useState(null)
-        const [allCategories, setAllCategories] = useState(null)
+    const [allCategories, setAllCategories] = useState([]);
+    const { category } = useParams();
 
-        const { category } = useParams()
+    useEffect(() => {
+        if (allProducts) {
+            const categories = [...new Set(allProducts.map(product => product.category))];
+            setAllCategories(categories);
+        }
+    }, [allProducts]);
 
-        useEffect(() => {
-            if(!allProducts){
-                fetchData()
-                .then(response => {
-                setAllProducts(response)
-                const categories = [...new Set(response.map(product => product.category))]
-                    setAllCategories(categories)
-                setTimeout(() => {
-                    isLoading(false)
-                }, 500)
-                
-                })
-                .catch(err => console.error(err))
-            }
-            },)
-    
-        return(
-            loading ?
+    if (loading) {
+        return (
             <div className="loader-container">
-                <Loader/>
+                <Loader />
             </div>
-            :
-                <>
-                    <div className="main-products">
-                    <CategoryFilter allCategories={allCategories} />
-                    <div className="product-container">
-                    {
-                        category ?
-
-                        allProducts.filter(el => el.category === category).map(el => {
-                            return(
-                                <ProductCard key={el.id} product={el}/>
-                            )
-                        })
-                        :
-                        <>
-                            {
-                                allProducts.map(el => {
-                                return(
-                                    <ProductCard key={el.id} product={el}/>
-                                )
-                                })
-                            }
-                        </>
-                    }</div>
-                    </div>
-                </> 
-        )
+        );
     }
 
-    export default ItemListContainer
+    const filteredProducts = category
+        ? allProducts.filter(el => el.category === category)
+        : allProducts;
+
+    return (
+        <div className="main-products">
+            <CategoryFilter allCategories={allCategories} />
+            <div className="product-container">
+                {filteredProducts.map(el => (
+                    <ProductCard key={el.id} product={el} />
+                ))}
+            </div>
+        </div>
+    );
+}
+
+export default ItemListContainer;

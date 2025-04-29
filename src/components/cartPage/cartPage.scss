@@ -1,0 +1,28 @@
+@import "/src/vars/vars.scss";
+
+.cart-product-container{
+    justify-content: space-evenly;
+    flex-direction: column;
+    margin: 5%;
+    border: 1px solid $gold;
+    padding: 1%;
+    .product-card{
+        @include flex-row;
+        justify-content: space-between;
+        padding: 1rem;
+        .img-name{
+            @include flex-row;
+            .img{
+                padding: 1rem;
+            }
+            .info{
+                padding: 1rem;
+            }
+        }
+    }
+    .final-step{
+        padding: 1rem;
+        display: flex;
+        justify-content: end;
+    }
+}

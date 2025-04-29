@@ -5,6 +5,7 @@ import Loader from "../loader/loader"
 import { Link, useParams } from "react-router"
 import { fetchData } from "../../fetchData"
 import NotFound from "../notFound/notfound"
+import { useAppContext } from "../../context/context"
 
 function ProductDetail() {
 
@@ -13,6 +14,7 @@ function ProductDetail() {
     const [loading, setLoading] = useState(true);
     const [product, setProduct] = useState(null)
     const [counter, setCounter] = useState(1)
+    const {addToCart} = useAppContext()
 
     useEffect(()=>{
         fetchData().then(response => {
@@ -23,15 +25,6 @@ function ProductDetail() {
             })
         }, 500);
     },[])
-
-    function addToCart(prod){
-        const newProduct = {
-            ...prod,
-            cantidad: counter,
-        } 
-        console.log(newProduct)
-        setCounter(1)
-    }
     
     return (
         loading ?
@@ -55,7 +48,7 @@ function ProductDetail() {
                     <div className="buttons-container">
                         <ProductCounter stock ={product.stock}counter={counter} setCounter={setCounter}></ProductCounter>
                         <div className="button-function-container">
-                            <button onClick={()=>{addToCart(product)}} className="button" role="button">Agregar al carrito</button>
+                            <button onClick={()=>{addToCart(product, counter)}} className="button" role="button">Agregar al carrito</button>
                             <Link to={"/"}>
                             <button className="button" role="button">Volver al inicio</button> 
                             </Link>

@@ -1,34 +1,29 @@
 import "./productCard.scss"
 import { Link } from "react-router"
+import { useAppContext, ContextProvider } from "../../context/context"
 
 function ProductCard ({product}) {
     
-    const {id, name, price, stock, img} = product
-
-    function addToCart(prod){
-        const newProduct = {
-            ...prod,
-            cantidad: 1,
-        }
-        console.log("Adding: "+ newProduct)
-    }
+    const { id, name, price, stock, img } = product
+    const { addToCart } = useAppContext()
+    const numId = parseInt(id)
     return (
         <div className="card-container">
             <div className="card">
-            <Link to={"detail/"+id}>
                 <div className="card2">
+                <Link to={"detail/"+ numId }>
                     <img className="product-icon" src={img} alt="product" />
                     <p> {name} </p>
-                    <p>Precio: $ { price}</p>
+                    <p>Precio: $ {price}</p>
+                        </Link>
                     <div data-tooltip={stock +" unidades"} className="button">
-                        <div className="button-wrapper">
-                            <div onClick={()=> addToCart(product)} className="text">Add to cart</div>
+                        <div className="button-wrapper" onClick={()=>{addToCart(product, 1)}}>
+                            <div className="text" >Agregar al carrito</div>
                             <span className="icon">
                             </span>
                         </div>
                     </div>
                 </div>
-            </Link>
             </div>
         </div>
     )
