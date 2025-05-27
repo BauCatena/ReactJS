@@ -1,8 +1,8 @@
 
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState } from "react"
 
-import { useEffect } from "react";
-import { fetchData } from "../fetchData";
+import { useEffect } from "react"
+import { fetchData } from "../fetchData"
 
 const AppContext = createContext()
 
@@ -48,8 +48,27 @@ export const ContextProvider = (props) => {
             alert("Producto agregado al carrito")
         }
     }
+const updateCartItemQuantity = (productId, newQuantity) => {
+  if (newQuantity < 1) return;
+
+  setCart(prevCart => {
+    const updatedCart = prevCart.map(item =>
+      item.id === productId ? { ...item, amount: newQuantity } : item
+    );
+    return updatedCart;
+  });
+};
+
+
+
+
+    const removeFromCart = (productId) => {
+
+        setCart(cart.filter(item => item.id !== productId))
+    }
+
     return(
-        <AppContext.Provider value={{cart, addToCart, data}}>
+        <AppContext.Provider value={{cart, addToCart, data, removeFromCart, updateCartItemQuantity}}>
             {props.children}
         </AppContext.Provider>
     )

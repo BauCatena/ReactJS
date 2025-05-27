@@ -5,15 +5,15 @@ import { db } from "./fireBaseConfig";
 export const fetchData = async ()=>{
 
             let cachedData = null;
-            const localData = localStorage.getItem("firedataBase")
+            let localData = localStorage.removeItem("firedataBase")
+            localData = localStorage.getItem("firedataBase")
             
             if (cachedData) {
                 return cachedData;
 
               } else if(localData){
-
-            cachedData = JSON.parse(localData);
-            return cachedData;
+                cachedData = JSON.parse(localData);
+                return cachedData;
 
             } else{
 
@@ -26,9 +26,11 @@ export const fetchData = async ()=>{
                     }))
 
                     localStorage.setItem("firedataBase", JSON.stringify(docsData))
-                    console.log("datos consultados a firebase", JSON.stringify(docsData))
                     return docsData;
-                }catch(err){console.error(err); return(null)}
+                }catch(err){
+                    console.error(err);
+                    return(null)
                 }
             }
+        }
            

@@ -1,10 +1,10 @@
 import "./App.scss"
-import NavBar from "./components/NavBar/NavBar"
+import { ContextProvider } from "./context/context"
 import { BrowserRouter, Routes, Route } from "react-router"
+import NavBar from "./components/NavBar/NavBar"
 import ItemListContainer from "./components/ItemListContainer/itemListContainer"
 import ProductDetail from "./components/productDetail/productDetail"
 import NotFound from "./components/notFound/notfound"
-import { ContextProvider } from "./context/context"
 import CartPage from "./components/cartPage/cartPage"
 import NewOrder from "./components/newOrder/newOrder"
 

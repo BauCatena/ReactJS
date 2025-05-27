@@ -1,24 +1,25 @@
-import "./productCounter.scss"
+import "./productCounter.scss";
 
-function ProductCounter({stock, counter, setCounter}) {
-    function totalAmount(op){
-        if(op === "+"){
-            if(counter < stock){
-                setCounter( counter + 1)
-            }
-        }else{
-            if(counter > 1){
-                setCounter(counter - 1)
-            }
-        }
+function ProductCounter({ stock, counter, onChange }) {
+  const increment = () => {
+    if (counter < stock) {
+      onChange(counter + 1);
     }
-    return(
-        <div className="counter-container">
-            <button className="button" onClick={()=>{totalAmount("-")}}>-</button>
-            <p>{counter}</p>
-            <button className="button" onClick={()=>{totalAmount("+")}}>+</button>
-        </div>
-    )
+  };
+
+  const decrement = () => {
+    if (counter > 1) {
+      onChange(counter - 1);
+    }
+  };
+
+  return (
+    <div className="counter-container">
+      <button className="button" onClick={decrement}>-</button>
+      <p key={counter}>{counter}</p>
+      <button className="button" onClick={increment}>+</button>
+    </div>
+  );
 }
 
-export default ProductCounter
+export default ProductCounter;
