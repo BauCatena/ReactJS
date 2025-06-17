@@ -1,8 +1,8 @@
 import { createContext, useContext, useState } from "react"
-
 import { useEffect } from "react"
 import { fetchData } from "../fetchData"
-import Notification from "../components/notification/notification"
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "/src/firebaseConfig";
 
 const AppContext = createContext()
 
@@ -15,6 +15,7 @@ export const ContextProvider = (props) => {
     const [data, setData] = useState(null)
     const [cart, setCart] = useState([])
     const [notification, setNotification] = useState({ message: "", visible: false });
+    const [user, setUser] = useState(null);
 
     
     useEffect(()=>{
@@ -22,11 +23,16 @@ export const ContextProvider = (props) => {
         fetchData().then(response =>{ 
             setData(response)
         })
-        
+          const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+          setUser(currentUser);
+        });
+        return () => unsubscribe();
+                
     },[])
-    function showNotification(message) {
+    const showNotification = (message, timeout) => {
+        if(!timeout) timeout = 2000;
         setNotification({ message, visible: true });
-        setTimeout(() => setNotification({ message: "", visible: false }), 2000);
+        setTimeout(() => setNotification({ message: "", visible: false }), timeout);
     }
 
     function addToCart(product, amount) {
@@ -56,16 +62,15 @@ export const ContextProvider = (props) => {
     };
 
 
-
-
    function removeFromCart(productId) {
 
         setCart(cart.filter(item => item.id !== productId))
+        showNotification("Producto eliminado")
     }
 
     return (
         <AppContext.Provider value={{
-            cart, addToCart, data, removeFromCart, updateCartItemQuantity, notification
+            cart, addToCart, data, removeFromCart, updateCartItemQuantity, notification, showNotification, user
         }}>
             {props.children}
         </AppContext.Provider>

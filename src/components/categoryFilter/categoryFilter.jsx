@@ -1,5 +1,7 @@
 import "./categoryFilter.scss"
+import "./subMenuItem/subMenuItem.scss"
 import SubMenuItem from "./subMenuItem/subMenuItem"
+import { Link } from "react-router"
 
 function CategoryFilter({allCategories}){
 
@@ -11,6 +13,11 @@ function CategoryFilter({allCategories}){
                 <span> Filtrar </span>
                 </a>
                 <div className="submenu">
+                <div className="submenu-item">
+                    <Link to={"/"} >
+                        <p className="submenu-link">Todos los productos</p>
+                    </Link>
+                </div>
                 {
                     allCategories.map(el =>{
                         return(

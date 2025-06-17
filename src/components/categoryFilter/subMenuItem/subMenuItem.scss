@@ -5,13 +5,15 @@
     transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
     display: flex;
     @include center;
+    flex-wrap: wrap;
+    overflow:visible;
 
     .submenu-link {
       display: block;
-      padding: 12px 24px;
+      padding-bottom: 1rem;
       width: 100%;
       position: relative;
-      text-align: left;
+      text-align: center;
       transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
 
       &:last-child {

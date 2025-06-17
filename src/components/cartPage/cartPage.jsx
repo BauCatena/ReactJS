@@ -21,6 +21,7 @@ function CartPage() {
 
   const total = () => cart.reduce((acc, el) => acc + el.amount * el.price, 0);
   if (loading) {
+    setLoading(false)
     return (
       <div className="loader-container">
         <Loader />
@@ -30,11 +31,11 @@ function CartPage() {
 
   return (
     <div>
-      <p className="heading">Mi Carrito</p>
-
+      <p className="heading">Tu Carrito</p>
       {empty ? (
         <p className="heading">Tu carrito está vacío, agrega productos para poder comprarlos</p>
       ) : (
+        <div>
         <div className="cart-product-container flex-row">
           {cart.map(el => (
             <div key={el.id} className="product-card" product={el}>
@@ -71,12 +72,15 @@ function CartPage() {
               </div>
             </div>
           ))}
+        </div>
+        <div>
           <div className="final-step">
             <p className="price">Total: $ {total()}</p>
             <Link to="/newOrder">
               <button className="button" >Finalizar compra</button>
             </Link>
           </div>
+        </div>
         </div>
       )}
     </div>

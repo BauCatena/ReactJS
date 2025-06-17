@@ -1,8 +1,11 @@
 import "./NavBar.scss"
 import CartWidget from "../CartWidget/CartWidget"
 import { Link } from "react-router"
+import {useAppContext} from "/src/context/context"
 
 function NavBar(){
+
+    const { user } = useAppContext();
 
     return(
     <header className="header">
@@ -12,9 +15,9 @@ function NavBar(){
                <Link to="/myAccount">
                 <button className="icon" href="./html/account.html"><img className="account-icon" src="/src/assets/incognito.svg" alt="cuenta"/></button>
                </Link>
-                <div className="logo-container">
-                    <p>Usuario</p>
-                    <p>Rango</p>
+                <div className="account-info">
+                    <p>{user?.displayName || "Usuario"}</p>
+                    <p>Rango:</p>
                 </div>
             </div>
         </div>
