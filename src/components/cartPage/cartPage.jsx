@@ -6,21 +6,20 @@ import { Link } from "react-router";
 import ProductCounter from "../productCounter/productCounter.jsx";
 
 function CartPage() {
-  const { cart, updateCartItemQuantity } = useAppContext();
+  const { cart, updateCartItemQuantity, removeFromCart } = useAppContext();
   const [loading, setLoading] = useState(true);
   const [empty, setEmpty] = useState(true);
+
 
   useEffect(() => {
     setEmpty(cart.length === 0);
   }, [cart]);
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 1000);
-    return () => clearTimeout(timer);
+    setLoading
   }, []);
 
   const total = () => cart.reduce((acc, el) => acc + el.amount * el.price, 0);
-
   if (loading) {
     return (
       <div className="loader-container">
@@ -56,7 +55,6 @@ function CartPage() {
                   </div>
                 </div>
               </div>
-
               <div className="flex-row center">
                 <div className="flex-column">
                   <ProductCounter
@@ -67,21 +65,20 @@ function CartPage() {
                     }}
                   />
                   <button className="button" onClick={() => {
-                    // Aquí pon tu función para eliminar
+                    removeFromCart(el.id)
                   }}>Eliminar producto</button>
                 </div>
               </div>
             </div>
           ))}
+          <div className="final-step">
+            <p className="price">Total: $ {total()}</p>
+            <Link to="/newOrder">
+              <button className="button" >Finalizar compra</button>
+            </Link>
+          </div>
         </div>
       )}
-
-      <div className="final-step">
-        <p>Total: $ {total()}</p>
-        <Link to="/newOrder">
-          <button>Finalizar compra</button>
-        </Link>
-      </div>
     </div>
   );
 }

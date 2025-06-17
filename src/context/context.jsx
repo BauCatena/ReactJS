@@ -1,8 +1,8 @@
-
 import { createContext, useContext, useState } from "react"
 
 import { useEffect } from "react"
 import { fetchData } from "../fetchData"
+import Notification from "../components/notification/notification"
 
 const AppContext = createContext()
 
@@ -14,61 +14,59 @@ export const ContextProvider = (props) => {
     
     const [data, setData] = useState(null)
     const [cart, setCart] = useState([])
+    const [notification, setNotification] = useState({ message: "", visible: false });
 
+    
     useEffect(()=>{
-
+        
         fetchData().then(response =>{ 
             setData(response)
         })
-
+        
     },[])
+    function showNotification(message) {
+        setNotification({ message, visible: true });
+        setTimeout(() => setNotification({ message: "", visible: false }), 2000);
+    }
 
-    function addToCart(product, amount){
-        const newProduct ={
-            ...product,
-            amount,
-        }
-
-        if(cart.some(el => el.id === product.id)){
-            const newCart = cart.map(el => {
-                if (el.id === product.id){
-                    return{
-                        ...el,
-                        amount: el.amount + amount
-                    }
-                }
-                else{
-                    return el
-                }
-            })
-            setCart(newCart)
-            alert("Producto agregado al carrito")
-        }else{
-            setCart([...cart, newProduct])
-            alert("Producto agregado al carrito")
+    function addToCart(product, amount) {
+        const newProduct = { ...product, amount };
+        if (cart.some(el => el.id === product.id)) {
+            const newCart = cart.map(el =>
+                el.id === product.id
+                    ? { ...el, amount: el.amount + amount }
+                    : el
+            );
+            setCart(newCart);
+            showNotification("Producto agregado al carrito");
+        } else {
+            setCart([...cart, newProduct]);
+            showNotification("Producto agregado al carrito");
         }
     }
-const updateCartItemQuantity = (productId, newQuantity) => {
-  if (newQuantity < 1) return;
+    const updateCartItemQuantity = (productId, newQuantity) => {
+    if (newQuantity < 1) return;
 
-  setCart(prevCart => {
-    const updatedCart = prevCart.map(item =>
-      item.id === productId ? { ...item, amount: newQuantity } : item
-    );
-    return updatedCart;
-  });
-};
-
-
+    setCart(prevCart => {
+        const updatedCart = prevCart.map(item =>
+        item.id === productId ? { ...item, amount: newQuantity } : item
+        );
+        return updatedCart;
+    });
+    };
 
 
-    const removeFromCart = (productId) => {
+
+
+   function removeFromCart(productId) {
 
         setCart(cart.filter(item => item.id !== productId))
     }
 
-    return(
-        <AppContext.Provider value={{cart, addToCart, data, removeFromCart, updateCartItemQuantity}}>
+    return (
+        <AppContext.Provider value={{
+            cart, addToCart, data, removeFromCart, updateCartItemQuantity, notification
+        }}>
             {props.children}
         </AppContext.Provider>
     )

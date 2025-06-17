@@ -12,17 +12,12 @@ function ProductCard ({product}) {
             <div className="card">
                 <div className="card2">
                 <Link to={"detail/"+ numId }>
-                    <img className="product-icon" src={img} alt="product" />
-                    <p> {name} </p>
-                    <p>Precio: $ {price}</p>
+                    <img className="product-icon el" src={img} alt="product" />
+                    <p className="el"> {name} </p>
+                    <p className="el">Precio: $ {price}</p>
+                    <p className="el">Unidades disponibles: {stock}</p>
                         </Link>
-                    <div data-tooltip={stock +" unidades"} className="button">
-                        <div className="button-wrapper" onClick={()=>{addToCart(product, 1)}}>
-                            <div className="text" >Agregar al carrito</div>
-                            <span className="icon">
-                            </span>
-                        </div>
-                    </div>
+                    <button className="button el" onClick={()=>{addToCart(product, 1)}}>Al carrito</button>
                 </div>
             </div>
         </div>

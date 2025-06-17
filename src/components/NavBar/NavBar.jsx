@@ -1,5 +1,6 @@
 import "./NavBar.scss"
 import CartWidget from "../CartWidget/CartWidget"
+import { Link } from "react-router"
 
 function NavBar(){
 
@@ -7,14 +8,10 @@ function NavBar(){
     <header className="header">
         <div className="header-container">
         <div className="flex-row center">
-        <label className="burger" htmlFor="burger">
-            <input type="checkbox" id="burger" />
-            <span></span>
-            <span></span>
-            <span></span>
-        </label>
             <div className="account-container">
-                <a className="icon" href="./html/account.html"><img alt="cuenta"/></a>
+               <Link to="/myAccount">
+                <button className="icon" href="./html/account.html"><img className="account-icon" src="/src/assets/incognito.svg" alt="cuenta"/></button>
+               </Link>
                 <div className="logo-container">
                     <p>Usuario</p>
                     <p>Rango</p>

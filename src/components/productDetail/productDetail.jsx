@@ -20,10 +20,8 @@ function ProductDetail() {
         fetchData().then(response => {
             const productChosen = response.find(el => el.id === parseInt(id))
             setProduct(productChosen)
-        setTimeout(() => {
             setLoading(false)
             })
-        }, 500);
     },[])
     
     return (
@@ -46,7 +44,7 @@ function ProductDetail() {
                         <p>Quedan {product.stock} unidades</p>
                     </div>
                     <div className="buttons-container">
-                        <ProductCounter stock ={product.stock}counter={counter} setCounter={setCounter}></ProductCounter>
+                        <ProductCounter stock={product.stock} counter={counter} onChange={setCounter}></ProductCounter>
                         <div className="button-function-container">
                             <button onClick={()=>{addToCart(product, counter)}} className="button" role="button">Agregar al carrito</button>
                             <Link to={"/"}>

@@ -1,0 +1,40 @@
+@import "/src/vars/vars.scss";
+
+@keyframes slideIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+@keyframes slideOut {
+  0% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-30px);
+  }
+}
+
+.notification {
+  background-color: $gold;
+  border-radius: 10px;
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: $gray;
+  padding: 12px 24px;
+  box-shadow: rgba(197, 167, 103, 0.2) 0 2px 4px, rgba(246, 229, 179, 0.15) 0 7px 13px -3px, rgb(197, 167, 103) 0 -3px 0 inset;
+
+  animation: slideIn 0.5s forwards;
+  &.hide {
+    animation: slideOut 0.5s forwards;
+  }
+}
