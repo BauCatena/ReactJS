@@ -9,9 +9,9 @@ function CartWidget(){
     return(
         <div className="nav-container">
         <ul className="nav">
-            <li><button className=" button" href="">Catálogo</button></li>
-            <li><Link to={"/"} className="button"> Inicio</Link></li>
-            <li><Link to={"/myCart"} className=" button" href="">🛒Carrito: {cart.length}</Link></li>
+            <li><Link to={"/products"}><button className=" button" href="">Catálogo</button></Link></li>
+            <li><Link to={"/"}><button className="button">Inicio</button></Link></li>
+            <li><Link to={"/myCart"} ><button className=" button">🛒Carrito: {cart.length}</button></Link></li>
         </ul>
     </div>
     )

@@ -1,24 +1,17 @@
 import "./ItemListContainer.scss";
 import ProductCard from "../productCard/productsCard";
-import { useState, useEffect } from "react";
 import Loader from "../loader/loader";
 import CategoryFilter from "../categoryFilter/categoryFilter";
 import { useParams } from "react-router";
 import { useAppContext } from "../../context/context";
 
 function ItemListContainer() {
-    const { data: allProducts } = useAppContext();
-    const loading = !allProducts;
-
-    const [allCategories, setAllCategories] = useState([]);
     const { category } = useParams();
-
-    useEffect(() => {
-        if (allProducts) {
-            const categories = [...new Set(allProducts.map(product => product.category))];
-            setAllCategories(categories);
-        }
-    }, [allProducts]);
+    const {
+        loading,
+        getCategories,
+        getProductsByCategory,
+    } = useAppContext();
 
     if (loading) {
         return (
@@ -28,9 +21,8 @@ function ItemListContainer() {
         );
     }
 
-    const filteredProducts = category
-        ? allProducts.filter(el => el.category === category)
-        : allProducts;
+    const filteredProducts = getProductsByCategory(category);
+    const allCategories = getCategories();
 
     return (
         <div className="main-products">

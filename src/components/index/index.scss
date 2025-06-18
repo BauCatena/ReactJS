@@ -1,0 +1,64 @@
+@use '/src/vars/vars.scss' as vars;
+
+.loader-container{
+    width: 100%;
+    height: 100%;
+}
+.main-container{
+    display: flex;
+    flex-direction:column ;
+    align-items: center;
+    margin-top: 2.5rem;
+    .text{
+        font-size: 1.2rem;
+        margin: 1rem;
+    }
+    .adverticement{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin-top: 6rem;
+        margin-bottom:4rem;
+        align-items: flex-start;
+        border-top: 1px solid vars.$gold;
+        box-shadow: rgba(197, 167, 103, 0.2) 0 -2px 4px, rgba(246, 229, 179, 0.15) 0 -7px 13px -3px, rgb(197, 167, 103) 0 -3px 10px;
+        .adverticement-title{
+            margin-top: 2rem;
+            margin-left: 2rem;
+            font-size: 1.6rem;
+        }
+        .adverticement-image{
+            margin: 2rem;
+            align-items: center;
+            align-content: center;
+            height: 350px;
+           max-width: 350px;
+        }
+        .adverticement-div{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1rem;
+            .adverticement-text{
+                font-size: 1.2rem;
+                margin-top: 1.5rem;
+                margin-right: 3rem;
+                margin-bottom: 1.5rem;
+                margin-left: 3rem;
+                line-height: 2rem;
+            }
+            .button{
+                margin-top: 4rem;
+            }
+        }
+    }
+    .trending{
+        width: 100%;
+        .top-products{
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            justify-content: space-evenly;
+        }
+    }
+}

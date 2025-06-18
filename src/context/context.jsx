@@ -1,40 +1,53 @@
-import { createContext, useContext, useState } from "react"
-import { useEffect } from "react"
-import { fetchData } from "../fetchData"
+import { createContext, useContext, useState, useEffect } from "react";
+import { fetchData } from "../fetchData";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "/src/firebaseConfig";
 
-const AppContext = createContext()
+const AppContext = createContext();
 
 // eslint-disable-next-line react-refresh/only-export-components
-export const useAppContext = () =>  useContext(AppContext)
+export const useAppContext = () => useContext(AppContext);
 
 export const ContextProvider = (props) => {
-
-    
-    const [data, setData] = useState(null)
-    const [cart, setCart] = useState([])
+    const [data, setData] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [cart, setCart] = useState([]);
     const [notification, setNotification] = useState({ message: "", visible: false });
     const [user, setUser] = useState(null);
 
-    
-    useEffect(()=>{
-        
-        fetchData().then(response =>{ 
-            setData(response)
-        })
-          const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-          setUser(currentUser);
+    useEffect(() => {
+        fetchData().then(response => {
+            setData(response);
+            setLoading(false);
         });
+
+        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+            setUser(currentUser);
+        });
+
         return () => unsubscribe();
-                
-    },[])
-    const showNotification = (message, timeout) => {
-        if(!timeout) timeout = 2000;
+    }, []);
+
+    // 🧠 Utilidades relacionadas con productos
+    const getCategories = () => {
+        if (!data) return [];
+        return [...new Set(data.map(product => product.category))];
+    };
+
+    const getProductsByCategory = (category) => {
+        if (!data) return [];
+        return category
+            ? data.filter(product => product.category === category)
+            : data;
+    };
+
+    // 🔔 Notificaciones
+    const showNotification = (message, timeout = 2000) => {
         setNotification({ message, visible: true });
         setTimeout(() => setNotification({ message: "", visible: false }), timeout);
-    }
+    };
 
+    // 🛒 Carrito
     function addToCart(product, amount) {
         const newProduct = { ...product, amount };
         if (cart.some(el => el.id === product.id)) {
@@ -50,29 +63,38 @@ export const ContextProvider = (props) => {
             showNotification("Producto agregado al carrito");
         }
     }
-    const updateCartItemQuantity = (productId, newQuantity) => {
-    if (newQuantity < 1) return;
 
-    setCart(prevCart => {
-        const updatedCart = prevCart.map(item =>
-        item.id === productId ? { ...item, amount: newQuantity } : item
+    const updateCartItemQuantity = (productId, newQuantity) => {
+        if (newQuantity < 1) return;
+        setCart(prevCart =>
+            prevCart.map(item =>
+                item.id === productId ? { ...item, amount: newQuantity } : item
+            )
         );
-        return updatedCart;
-    });
     };
 
-
-   function removeFromCart(productId) {
-
-        setCart(cart.filter(item => item.id !== productId))
-        showNotification("Producto eliminado")
+    function removeFromCart(productId) {
+        setCart(cart.filter(item => item.id !== productId));
+        showNotification("Producto eliminado");
     }
 
     return (
-        <AppContext.Provider value={{
-            cart, addToCart, data, removeFromCart, updateCartItemQuantity, notification, showNotification, user
-        }}>
+        <AppContext.Provider
+            value={{
+                cart,
+                addToCart,
+                removeFromCart,
+                updateCartItemQuantity,
+                notification,
+                showNotification,
+                user,
+                data,
+                loading,
+                getCategories,
+                getProductsByCategory,
+            }}
+        >
             {props.children}
         </AppContext.Provider>
-    )
-}
+    );
+};

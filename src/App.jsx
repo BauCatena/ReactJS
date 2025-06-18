@@ -10,6 +10,7 @@ import NewOrder from "./components/newOrder/newOrder"
 import Notification from "./components/notification/notification"
 import { useAppContext } from "./context/context"
 import MyAccount from "./components/myAccount/myAccount"
+import Index from "./components/index"
 
 function AppContent() {
   const { notification } = useAppContext();
@@ -18,7 +19,7 @@ function AppContent() {
       <NavBar/>
       <Notification message={notification.message} visible={notification.visible} />
       <Routes>
-        <Route path="/" element={<ItemListContainer/>}/>
+        <Route path="/products" element={<ItemListContainer/>}/>
         <Route path="/category/:category" element={<ItemListContainer />} />
         <Route path="/category/:category/detail/:id" element={<ProductDetail/>} />
         <Route path="detail/:id" element={<ProductDetail/>} />
@@ -27,6 +28,7 @@ function AppContent() {
         <Route path="*" element={<NotFound/> } />
         <Route path="/newOrder" element={<NewOrder/>} />
         <Route path="/myAccount" element={<MyAccount/>}/>
+        <Route path="/" element={<Index/>}/>
       </Routes>
     </>
   );

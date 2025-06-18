@@ -14,7 +14,7 @@ function CategoryFilter({allCategories}){
                 </a>
                 <div className="submenu">
                 <div className="submenu-item">
-                    <Link to={"/"} >
+                    <Link to={"/products"} >
                         <p className="submenu-link">Todos los productos</p>
                     </Link>
                 </div>
