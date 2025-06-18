@@ -61,4 +61,41 @@
             justify-content: space-evenly;
         }
     }
+    .services-container{
+        display: inline;
+        width: 100%;
+        .services{
+            display: flex;
+            flex-direction: row;
+            margin:3rem;
+            max-width: 100%;
+            justify-content: space-evenly;
+            .service{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                .service-img{
+                    box-shadow: rgba(197, 167, 103, 0.2) 0 7px 4px, rgba(246, 229, 179, 0.15) 0 7px 13px -3px, rgb(197, 167, 103) 0 -2px 20px;
+                    padding: 20px;
+                    height: auto;
+                    width: 200px;
+                    border-radius: 100%;
+                    border: 1px solid vars.$light-gray;
+                    margin: 3rem;
+                }
+            }
+        }
+    }
+    .buy-now{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 2rem;
+        max-width: 100%;
+        .buy-now-content{
+            font-size: 1.5rem;
+            text-align: center;
+            padding: 3rem;
+        }
+    }
 }

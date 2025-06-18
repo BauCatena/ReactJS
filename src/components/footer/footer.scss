@@ -1,0 +1,118 @@
+@use '/src/vars/vars.scss' as vars;
+
+
+.top-footer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-top: 1px solid vars.$gold;
+    box-shadow: rgba(197, 167, 103, 0.2) 0 7px 4px, rgba(246, 229, 179, 0.15) 0 7px 13px -3px, rgb(197, 167, 103) 0 -2px 20px;
+    margin-top: 2rem;
+    padding: 1rem;
+    .text{
+        font-size: 1.3rem;
+        }
+
+    .input {
+    font-weight: 500;
+    font-size: 1rem;
+    color: #fff;
+    background-color: rgb(28,28,30);
+    box-shadow: 0 0 .4vw rgba(0,0,0,0.5), 0 0 0 .15vw transparent;
+    border-radius: 0.4vw;
+    border: none;
+    outline: none;
+    padding: 0.6rem;
+    max-width: 190px;
+    transition: .4s;
+    margin: 1rem;
+
+    &:hover {
+        box-shadow: 0 0 0 .15vw vars.$light-gray;
+    }
+    
+    &:focus {
+        box-shadow: 0 0 0 .15vw vars.$gold;
+    }
+    }
+}
+.middle-footer{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    .middle-footer-left{
+        .middle-footer-letf-title{
+            font-size: 1.5rem;
+            padding: 1rem;
+        }
+        padding: 1rem;
+        width: 30%;
+        .card {
+            border-radius: 10px;
+            width: fit-content;
+            height: fit-content;
+            background-color: #151515;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 25px;
+            gap: 20px;
+            box-shadow: 0px 0px 8px vars.$light-gray;
+            flex-direction: column;
+            }
+
+            .socialContainer {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background-color: vars.$light-gray;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            transition-duration: 0.3s;
+
+            &:hover {
+                background-color: #c4a767;
+
+                .socialSvg {
+                animation: slide-in-top 0.3s both;
+                }
+            }
+
+            &:active {
+                transform: scale(0.9);
+            }
+
+            .socialSvg {
+                width: 17px;
+                background-color: transparent;
+                path {
+                fill: #fff;
+                }
+            }
+            }
+
+            @keyframes slide-in-top {
+            0% {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    }
+    .middle-footer-middle{
+        width: 30%;
+        .logo{
+            width: 100%;
+        }
+    }
+    .middle-footer-right{
+        width: 30%;
+    }
+}

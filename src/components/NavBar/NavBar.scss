@@ -13,6 +13,12 @@
         .logo-container {
         @include flex-row;
         @include center;
+        .nickname{
+          font-family: 'Lovelyn', serif;
+          font-size: 3rem;
+          font-weight: 400;
+          color: white;
+        }
         }
     
         .account-container {

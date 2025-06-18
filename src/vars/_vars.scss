@@ -3,6 +3,16 @@ $gold:  #c4a767;
 $gray:  #151515;
 $light-gray: rgb(164, 164, 164);
 
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400&display=swap');
+
+@font-face {
+  font-family: 'Lovelyn';
+  src: url('/public/fonts/LovelynRegular.woff2') format('woff2'),
+       url('/public/fonts/lovelynRegular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
 @mixin flex-row{
     display: flex;
     flex-direction: row;
@@ -40,6 +50,7 @@ a:hover{
     border-radius: 100%;
 }
 .heading{
+    font-style:italic;
     text-align: center;
     font-size: 2.5rem;
     color: $light-gray;
@@ -53,7 +64,8 @@ button{
 li{
     list-style: none;
 }
-.button{
+.button{    
+        font-weight: 600;
         margin: 10px;
         align-items: center;
         appearance: none;

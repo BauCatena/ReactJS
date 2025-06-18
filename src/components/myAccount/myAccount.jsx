@@ -176,7 +176,7 @@ function MyAccount() {
 
   return (
     <div className="container">
-      <p>Tu cara no me suena, registrate o inicia sesión</p>
+      <p>Tu cara no nos suena, registrate o inicia sesión</p>
       <div className="cards">
         <button className="card red" onClick={() => setRegister(true)}>
           <p className="tip">Registrarse</p>
