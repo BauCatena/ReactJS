@@ -35,8 +35,14 @@ function Footer(){
                 <div className="flex-row center middle-footer-middle">
                     <img className="logo" src="/src/assets/logo1.png" alt="logo" />
                 </div>
-                <div className="middle-footer-right">
+                <div className="middle-footer-right flex-column">
+                    <a>Políticas de devolución</a>
+                    <a>Términos y condiciones</a>
+                    <a>Preguntas frecuentes</a>
                 </div>
+            </div>
+            <div className="bottom-footer">
+                <p>© Il Circolo Nero 2024 – marca registrada – todos los derechos reservados.</p>
             </div>
         </footer>
         </>

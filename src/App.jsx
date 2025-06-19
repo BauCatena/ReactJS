@@ -11,6 +11,7 @@ import Notification from "./components/notification/notification"
 import { useAppContext } from "./context/context"
 import MyAccount from "./components/myAccount/myAccount"
 import Index from "./components/index"
+import Footer from "./components/footer/footer"
 
 function AppContent() {
   const { notification } = useAppContext();
@@ -30,6 +31,7 @@ function AppContent() {
         <Route path="/myAccount" element={<MyAccount/>}/>
         <Route path="/" element={<Index/>}/>
       </Routes>
+      <Footer/>
     </>
   );
 }

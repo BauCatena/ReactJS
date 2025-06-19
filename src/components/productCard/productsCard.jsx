@@ -16,8 +16,9 @@ function ProductCard ({product}) {
                     <p className="el"> {name} </p>
                     <p className="el">Precio: $ {price}</p>
                     <p className="el">Unidades disponibles: {stock}</p>
-                        </Link>
-                    <button className="button el" onClick={()=>{addToCart(product, 1)}}>Al carrito</button>
+                </Link>
+                {stock ? <button className="button el" onClick={()=>{addToCart(product, 1)}}>Al carrito</button> : <button className="button el">Sin stock</button> }
+                    
                 </div>
             </div>
         </div>

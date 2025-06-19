@@ -1,1 +1,24 @@
-@import "/src/vars/vars";
+@use "/src/vars/vars" as vars;
+.main{
+    .order{
+        font-size: 1.3rem;
+        text-align: center;
+        padding: 2rem;
+        .form-container{
+            display: flex;
+            justify-content: center;
+            .form{
+                padding: 1.4rem;
+                margin: 2rem;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                border-radius: 10px;
+                border: 2px solid vars.$gold;
+                width: fit-content;
+            }
+        }
+
+}
+}

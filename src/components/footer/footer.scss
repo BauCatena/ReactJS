@@ -114,5 +114,14 @@
     }
     .middle-footer-right{
         width: 30%;
+        align-items: flex-end;
+        justify-content: flex-end;
+        padding-right: 1.5rem;
     }
+}
+.bottom-footer{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5px;
 }

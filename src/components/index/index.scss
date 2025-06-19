@@ -57,6 +57,7 @@
         .top-products{
             display: flex;
             flex-direction: row;
+            flex-wrap: wrap;
             width: 100%;
             justify-content: space-evenly;
         }
@@ -70,15 +71,17 @@
             margin:3rem;
             max-width: 100%;
             justify-content: space-evenly;
+            flex-wrap: wrap;
             .service{
                 display: flex;
                 flex-direction: column;
                 align-items: center;
+                
                 .service-img{
                     box-shadow: rgba(197, 167, 103, 0.2) 0 7px 4px, rgba(246, 229, 179, 0.15) 0 7px 13px -3px, rgb(197, 167, 103) 0 -2px 20px;
                     padding: 20px;
                     height: auto;
-                    width: 200px;
+                    width: 160px;
                     border-radius: 100%;
                     border: 1px solid vars.$light-gray;
                     margin: 3rem;

@@ -6,7 +6,7 @@ import { Link } from "react-router";
 import ProductCounter from "../productCounter/productCounter.jsx";
 
 function CartPage() {
-  const { cart, updateCartItemQuantity, removeFromCart } = useAppContext();
+  const { cart, updateCartItemQuantity, removeFromCart} = useAppContext();
   const [loading, setLoading] = useState(true);
   const [empty, setEmpty] = useState(true);
 

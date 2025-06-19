@@ -79,8 +79,7 @@ function Index() {
                         <button className="button"> Registrarse</button>
                     </Link>
                 </div>} 
-            </section>
-             <Footer/>       
+            </section>      
         </>
     )
 }
