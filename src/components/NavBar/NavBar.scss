@@ -1,58 +1,101 @@
-@import "/src/vars/vars";
+@use "/src/vars/vars" as vars;
 .header {
-        @include flex-column;
-        border-bottom: 1px solid $light-gold;
-    .header-container{
-        @include flex-row;
-        justify-content: space-between;
-        margin-top: 10px;
-        margin-left: 10px;
-        margin-right: 10px;
-        align-items: center;
+  @include vars.flex-column;
+  border-bottom: 1px solid vars.$light-gold;
 
-        .logo-container {
-        @include flex-row;
-        @include center;
-        .nickname{
-          font-family: 'Lovelyn', serif;
-          font-size: 3rem;
-          font-weight: 400;
-          color: white;
-        }
-        }
-    
-        .account-container {
-        margin: 1rem;
-            .account-info{
-            display: flex;
-            align-items: stretch;
-            flex-direction: column;
-            margin-top: 5px;
-          }
-        .icon{
-          all:unset;
-          display: flex;
-          width: 70px;
-          height: 70px;
-          border-radius: 100%;
-          border: 3px solid $gold;
-          @include center;
-          .account-icon{
-            height: 80%;
-            width: 80%;
-            @include center;
-            border: 3px $gray solid;
-            border-radius: 30px;
-            }
-          }
-        &:hover{
-          transform: scale(1.05);
-          transition: all 200ms ease-in-out;
-          }
-        &:active{
-          transform: scale(1);
-          transition: all 50ms ease-in;
-          }
-        }
-      }          
+  .header-container {
+    @include vars.flex-row;
+    justify-content: space-between;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    align-items: center;
+
+    .logo-container {
+      @include vars.flex-row;
+      @include vars.center;
+
+      .nickname {
+        font-family: 'Lovelyn', serif;
+        font-size: 3rem;
+        font-weight: 400;
+        color: white;
+      }
     }
+
+    .account-container {
+      margin: 1rem;
+      @include vars.center;
+      flex-direction: column;
+
+      .account-info {
+        display: flex;
+        align-items: stretch;
+        flex-direction: column;
+        margin-top: 5px;
+      }
+      .account{
+        border-radius: 100%;
+        border: 1px solid vars.$gold;
+        display: flex;
+        @include vars.center;
+        width: 90px;
+        height: 90px;
+      }
+      .icon {
+        display: flex;
+        @include vars.center;
+        .account-icon {
+          height: 70%;
+          width: 70%;
+
+        }
+      }
+
+      &:hover {
+        transform: scale(1.05);
+        transition: all 200ms ease-in-out;
+      }
+
+      &:active {
+        transform: scale(1);
+        transition: all 50ms ease-in;
+      }
+    }
+  }
+  @media screen and (max-width: 500px){
+    .header-container{
+      flex-wrap: wrap;
+      margin: 0px;
+      justify-content: flex-start;
+      .account-container{
+        max-width: 90px;
+        .icon{
+          height: 55px;
+          width: 55px;
+        }
+        .account-info{
+          text-align: center;
+          .user{
+            text-overflow: clip;
+          }
+          .rank{
+            display: none;
+          }
+        }
+      }
+      .logo-container{
+        .icon{
+          width: 80px;
+          height: 80px;
+        }
+        .nickname{
+        font-size: 1.4rem;
+      }
+      }
+      .input{
+        display: none;
+      }
+    }
+  }
+}

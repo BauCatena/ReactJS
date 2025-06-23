@@ -101,4 +101,20 @@
             padding: 3rem;
         }
     }
+     @media screen and (max-width: 500px){
+        .adverticement-container{
+            flex-direction: column;
+            .adverticement-div{
+                .adverticement-text{
+                    margin: 1rem;
+                }
+                .button{
+                    margin-top: 1rem;
+                }
+            }
+        }
+     }
+     .services-container{
+        margin-top: 3.5rem;
+     }
 }

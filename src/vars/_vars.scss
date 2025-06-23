@@ -22,6 +22,7 @@ $light-gray: rgb(164, 164, 164);
     flex-direction: column;
 }
 @mixin center{
+  display: flex;
     align-items: center;
     justify-content: center;
 }
@@ -137,5 +138,13 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 input[type="number"] {
-  appearance: textfield; /* Firefox */
+  appearance: textfield;
 }
+ @media screen and (max-width: 500px){
+    p{
+        font-size: 1.1rem;
+    }
+    .heading{
+      font-size: 2rem ;
+    }
+ }

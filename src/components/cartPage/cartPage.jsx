@@ -36,7 +36,7 @@ function CartPage() {
   }
 
   return (
-    <div>
+    <div className="main flex-column">
       <p className="heading">Tu Carrito</p>
       {empty ? (
         <p className="heading">Tu carrito está vacío, agrega productos para poder comprarlos</p>
@@ -62,11 +62,12 @@ function CartPage() {
             <p>Valor por unidad: $ {price}</p>
             <p>Cantidad: {el.amount} unidad/es de {sizeKey} ml</p>
             <p>Total: $ {price * el.amount}</p>
+            <br />
             <p>Unidades disponibles: {stock}</p>
           </div>
         </div>
       </div>
-      <div className="flex-row center">
+      <div className="flex-row center buttons">
         <div className="flex-column">
           <ProductCounter
             stock={stock}

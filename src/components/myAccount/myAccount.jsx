@@ -112,7 +112,8 @@ function MyAccount() {
 
   if (register) {
     return (
-      <div className="container">
+      <div className="main">
+        <div className="container">
         <p>Ingrese los datos. Disculpe la formalidad</p>
         <input
           type="text"
@@ -138,19 +139,20 @@ function MyAccount() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <div className="flex-row">
-          <input type="checkbox" />
-          <p>Estoy de acuerdo con los términos</p>
+        <div className="flex-row cond">
+          <p>Al registrarse esta de acuerdo con los <u className="a">términos y condiciones</u></p>
         </div>
         <button className="button" onClick={handleRegister}>Registrarse</button>
         <button className="button secondary" onClick={() => setRegister(false)}>Volver</button>
+      </div>
       </div>
     );
   }
 
   if (logIn) {
     return (
-      <div className="container">
+      <div className="main">
+        <div className="container">
         <input
           type="email"
           name="email"
@@ -158,7 +160,7 @@ function MyAccount() {
           placeholder="Correo electrónico"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-        />
+          />
         <input
           type="password"
           name="password"
@@ -166,16 +168,18 @@ function MyAccount() {
           placeholder="Contraseña"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-        />
+          />
         <button className="button" onClick={handleLogin}>Ese soy yo</button>
         <button className="button google" onClick={handleGoogleLogin}>Iniciar con Google</button>
         <button className="button secondary" onClick={() => setLogIn(false)}>Volver</button>
       </div>
+    </div>
     );
   }
 
   return (
-    <div className="container">
+    <div className="main">
+      <div className="container">
       <p>Tu cara no nos suena, registrate o inicia sesión</p>
       <div className="cards">
         <button className="card red" onClick={() => setRegister(true)}>
@@ -185,6 +189,7 @@ function MyAccount() {
           <p className="tip">Iniciar sesión</p>
         </button>
       </div>
+    </div>
     </div>
   );
 }

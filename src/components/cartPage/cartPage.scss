@@ -1,19 +1,23 @@
-@import "/src/vars/vars.scss";
+@use "/src/vars/vars.scss" as vars;
 
+.main{
+  min-height:400px;
+  justify-content: flex-start;
+}
 .cart-product-container{
     justify-content: space-evenly;
     flex-direction: column;
     margin: 5%;
-    border: 1px solid $gold;
+    border: 1px solid vars.$gold;
     border-radius: 10px;
      box-shadow: rgba(197, 167, 103, 0.2) 0 2px 4px, rgba(246, 229, 179, 0.15) 0 7px 13px -3px,;
     padding: 1%;
     .product-card{
-        @include flex-row;
+        @include vars.flex-row;
         justify-content: space-between;
         padding: 1rem;
         .img-name{
-            @include flex-row;
+            @include vars.flex-row;
             .img{
                 padding: 1rem;
             }
@@ -21,6 +25,16 @@
                 padding: 1rem;
             }
         }
+    }
+    @media screen and (max-width: 500px){
+      
+    
+          .product-card{
+              flex-direction: column;
+          }
+          .buttons{
+            justify-content: flex-end;
+          }
     }
 }
 .final-step{

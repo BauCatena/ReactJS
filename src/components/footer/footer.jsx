@@ -14,7 +14,7 @@ function Footer(){
             </div>
             <div className="middle-footer">
                 <div className="middle-footer-left">
-                    <p className="middle-footer-letf-title">Sociales</p>
+                    <p className="middle-footer-letf-title">Redes</p>
                     <div class="card">
                         <a class="socialContainer containerOne">
                             <svg class="socialSvg instagramSvg" viewBox="0 0 16 16">
@@ -33,7 +33,7 @@ function Footer(){
                     </div>
                 </div>
                 <div className="flex-row center middle-footer-middle">
-                    <img className="logo" src="/src/assets/logo1.png" alt="logo" />
+                    <img className="logo" src="https://i.imgur.com/xzN9C0R.png" alt="logo" />
                 </div>
                 <div className="middle-footer-right flex-column">
                     <a>Políticas de devolución</a>

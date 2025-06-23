@@ -6,7 +6,7 @@ function ProductCard ({product}) {
     
     const { addToCart } = useAppContext()
 
-    const { id, name, sizes, img } = product
+    const { id, name, sizes, imageUrl } = product
     const {30: small,} = sizes
     // const {price, stock} = small
     const numId = parseInt(id)
@@ -19,7 +19,7 @@ function ProductCard ({product}) {
                 <div className="card2">
                 <Link to={"detail/"+ numId }>
                     <div>
-                    <img className="product-icon el" src={img} alt="product" />
+                    <img className="product-icon el" src={imageUrl} alt="product" />
                     <p className="el"> {name} </p>
                     <p className="el">Precio: $ {small.price}</p>
                     <p className="el">Unidades disponibles: {small.stock}</p>

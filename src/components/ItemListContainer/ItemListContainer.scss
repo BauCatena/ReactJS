@@ -1,18 +1,24 @@
-@import "/src/vars/vars";
+@use "/src/vars/vars" as vars;
 
 
 .loader-container{
     width: 100%;
     padding-top: 10%;
     display: flex;
-    @include center;
+    @include vars.center;
 }
 .main-products{
-    @include flex-row;
+    @include vars.flex-row;
     .product-container{
-        @include flex-row;
+        @include vars.flex-row;
         width: 100%;
         justify-content: space-evenly;
         flex-wrap: wrap;
+    }
+}
+@media screen and (max-width: 500px){
+    .main-products{
+        flex-direction: column;
+        @include vars.center;
     }
 }

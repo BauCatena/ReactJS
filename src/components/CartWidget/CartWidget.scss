@@ -1,18 +1,32 @@
-@import "/src/vars/vars";
+@use "/src/vars/vars" as vars;
 .nav-container{
     .nav{
-        @include flex-row;
+        @include vars.flex-row;
         justify-content: space-around;
         margin-bottom: 10px;
 
     }
     .nav-element{
         font-size: 1.3rem;
-        background-color: $gold;
-        color: $gray;
+        background-color: vars.$gold;
+        color: vars.$gray;
         border-radius: 5%;
         &:hover{
-            background-color: $light-gold;
+            background-color: vars.$light-gold;
         }
     }
+}
+
+@media screen and (max-width: 500px) {
+  .nav-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-bottom: none;
+    border-top: 1px solid vars.$gold;
+    height: auto;
+    width: 100%;
+      z-index: 9999;
+  }
 }

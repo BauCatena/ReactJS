@@ -90,7 +90,14 @@
     }
 
    
-    
+    @media screen and (max-width: 500px){
+      .card-detail2{
+        flex-direction: column;
+        .buttons-container{
+          height: fit-content;
+        }
+      }
+    }
   }
   
   

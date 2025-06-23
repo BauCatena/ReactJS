@@ -30,7 +30,7 @@ function ProductDetail() {
         });
     }, [id])
     
-    const { name, description, dupe, img, longevity, projection, rating, similarity } = product;
+    const { name, description, dupe, imageUrl, longevity, projection, rating, similarity } = product;
     const currentSize = sizes[selectedSize] || {};
     
     
@@ -46,7 +46,7 @@ function ProductDetail() {
             <div className="card-detail">
                 <div className="card-detail2">
                     <div className="props-container">
-                        <img className="product-icon container" src={img} alt="product" />
+                        <img className="product-icon container" src={imageUrl} alt="product" />
                         <p> {name} </p>
                         <br />
                         <p> {description} </p>

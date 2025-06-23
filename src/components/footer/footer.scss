@@ -1,6 +1,7 @@
 @use '/src/vars/vars.scss' as vars;
 
-
+.footer{
+    margin-left: 0px;
 .top-footer{
     display: flex;
     flex-direction: column;
@@ -44,7 +45,9 @@
     .middle-footer-left{
         .middle-footer-letf-title{
             font-size: 1.5rem;
-            padding: 1rem;
+            text-align: center;
+            padding-bottom: 10px;
+            order: 1;
         }
         padding: 1rem;
         width: 30%;
@@ -108,6 +111,7 @@
     }
     .middle-footer-middle{
         width: 30%;
+        order: 2;
         .logo{
             width: 100%;
         }
@@ -117,6 +121,7 @@
         align-items: flex-end;
         justify-content: flex-end;
         padding-right: 1.5rem;
+        order: 3;
     }
 }
 .bottom-footer{
@@ -124,4 +129,53 @@
     display: flex;
     justify-content: center;
     margin-bottom: 5px;
+}
+@media screen and (max-width: 500px) {
+  .middle-footer {
+    display: grid;
+    grid-template-areas:
+      "left middle-middle"
+      "right right";
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 1rem;
+    align-items: center;
+    justify-items: start;
+  }
+
+  .middle-footer-left {
+    grid-area: left;
+    width: fit-content !important;
+  }
+
+  .middle-footer-middle {
+    grid-area: middle-middle;
+    width: 130% !important; 
+    justify-self: end;
+    .logo {
+      width: 100%;
+    }
+  }
+
+  .middle-footer-right {
+    grid-area: right;
+    width: 100% !important;
+    justify-content: space-evenly !important;
+    justify-self:stretch;
+    flex-direction: row;
+    margin-bottom: 10px;
+    padding: 0px;
+
+  }
+  a{
+    
+    font-size:0.95rem;
+    text-decoration: underline;
+  }
+
+  .bottom-footer {
+    margin-bottom: 5rem;
+  }
+}
+
 }

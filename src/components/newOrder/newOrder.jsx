@@ -68,7 +68,9 @@ function NewOrder() {
     try {
       await addDoc(collection(db, "orders"), nuevoPedido);
       setPedidoRealizado(true);
-      setCart([]);
+      setTimeout(() => {
+        setCart([]);
+      }, 5000);
       showNotification("Pedido realizado con éxito", 1300);
 
       

@@ -25,7 +25,7 @@ function Index() {
                 </div>
                 <div className="adverticement">
                     <p className="adverticement-title">Los buenos perfumes… se consiguen con buenos contactos, acá no hay etiquetas. Solo fraganze.</p>
-                    <div className="flex-row center">
+                    <div className="flex-row center adverticement-container">
                         <div className="adverticement-image">
                             <p>Proximamente una imagen Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem excepturi dolore quo, ab praesentium aperiam in dolorum, nam ratione ipsa maxime, cumque rerum sint? Sunt qui assumenda in fugit atque.</p>
                             <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quae sit iste ab quaerat, porro eaque nemo numquam? Rerum, velit. Ipsa dolor magnam optio atque quae repellat fugiat, sit asperiores veritatis! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem doloremque quam quibusdam distinctio ratione incidunt ea quo aliquam voluptates nostrum tempora similique fugit cumque saepe fugiat, corporis illo sed eligendi?</p>
@@ -48,15 +48,15 @@ function Index() {
                     <p className="heading">Contamos con todo tipo de servicios</p>
                     <div className="services">
                         <div className="service">
-                            <img className="service-img" src="/src/assets/delivery.svg" alt="envío" />
+                            <img className="service-img" src="/assets/delivery.svg" alt="envío" />
                             <p>Envíos por correo</p>
                         </div>
                         <div className="service">
-                            <img className="service-img" src="/src/assets/pagar-dolar.svg" alt="medios de pago" />
+                            <img className="service-img" src="/assets/pagar-dolar.svg" alt="medios de pago" />
                             <p>Depósito o transferencia</p>
                         </div>
                         <div className="service">
-                            <img className="service-img" src="/src/assets/apoyo.svg" alt="soporte" />
+                            <img className="service-img" src="/assets/apoyo.svg" alt="soporte" />
                             <p>Asistencia de compra/precompra</p>
                         </div>
                     </div>

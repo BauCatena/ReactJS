@@ -1,9 +1,9 @@
-@import "/src/vars/vars.scss";
+@use "/src/vars/vars.scss" as vars;
 
 .menu {
     font-size: 16px;
     line-height: 1.6;
-    color: $light-gray;
+    color: vars.$light-gray;
     width: fit-content;
     display: flex-block;
     list-style: none;
@@ -21,7 +21,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 1px solid $gold;
+      border: 1px solid vars.$gold;
       border-radius: 16px;
       overflow: hidden;
       transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
@@ -56,12 +56,12 @@
         left: 0;
         box-sizing: border-box;
         overflow: hidden;
-        border: 1px solid $light-gold;
+        border: 1px solid vars.$light-gold;
         opacity: 0;
         visibility: hidden;
         transform: translateY(-12px);
         transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
-        z-index: 1;
+        z-index: 99;
         pointer-events: none;
         list-style: none;
       }
@@ -73,11 +73,11 @@
           transform: translateY(0);
           pointer-events: auto;
           border-top: transparent;
-          border-color: $gold;
+          border-color: vars.$gold;
         }
   
         .link {
-          color: $gold;
+          color: vars.$gold;
           border-radius: 16px 16px 0 0;
   
           &::after {
@@ -85,6 +85,12 @@
             transform-origin: right;
           }
         }
+      }
+    }
+    @media screen and (max-width: 500px){
+      .submenu{
+        position: absolute;
+        margin-top: 27.5%;
       }
     }
   }
