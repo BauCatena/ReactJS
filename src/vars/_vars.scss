@@ -38,7 +38,7 @@ $light-gray: rgb(164, 164, 164);
     justify-content: center;
 }
 a{
-    text-decoration: none;
+  text-decoration: none;
     color: $light-gray;
     transition: all 200ms ease;
 }
@@ -58,6 +58,7 @@ a:hover{
 }
 p{
     color: $light-gray;
+    font-size: 1.2rem;
 }
 button{
     all: unset;
@@ -128,4 +129,13 @@ li{
   &:focus {
     box-shadow: 0 0 0 .15vw $gold;
   }
+}
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  appearance: textfield; /* Firefox */
 }

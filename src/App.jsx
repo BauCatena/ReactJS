@@ -23,7 +23,7 @@ function AppContent() {
         <Route path="/products" element={<ItemListContainer/>}/>
         <Route path="/category/:category" element={<ItemListContainer />} />
         <Route path="/category/:category/detail/:id" element={<ProductDetail/>} />
-        <Route path="detail/:id" element={<ProductDetail/>} />
+        <Route path="/products/detail/:id" element={<ProductDetail/>} />
         <Route path="/myCart" element={<CartPage/>} />
         <Route path="/myCart/detail/:id" element={<ProductDetail/>} />
         <Route path="*" element={<NotFound/> } />

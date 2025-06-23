@@ -48,17 +48,30 @@ export const ContextProvider = (props) => {
     };
 
     // 🛒 Carrito
-    function addToCart(product, amount) {
-        const newProduct = { ...product, amount };
-        if (cart.some(el => el.id === product.id)) {
-            const newCart = cart.map(el =>
-                el.id === product.id
+    function addToCart(product, amount, sizeKey) {
+        // Mapea sizeKey a la clave numérica real
+        const sizeNumber = sizeKey === "big" ? 100 : 30;
+        // Crea un objeto sizes solo con el tamaño seleccionado
+        const selectedSizeObj = { [sizeNumber]: product.sizes[sizeNumber] };
+        // Crea una copia del producto con el tamaño seleccionado
+        const newProduct = { ...product, amount, sizeKey, sizes: selectedSizeObj };
+
+        // Busca si ya existe el producto con el mismo id y tamaño en el carrito
+        const existingIndex = cart.findIndex(
+            el => el.id === product.id && el.sizeKey === sizeKey
+        );
+
+        if (existingIndex !== -1) {
+            // Si ya existe, suma la cantidad
+            const newCart = cart.map((el, idx) =>
+                idx === existingIndex
                     ? { ...el, amount: el.amount + amount }
                     : el
             );
             setCart(newCart);
             showNotification("Producto agregado al carrito");
         } else {
+            // Si no existe, agrega el nuevo producto con el tamaño seleccionado
             setCart([...cart, newProduct]);
             showNotification("Producto agregado al carrito");
         }
@@ -92,6 +105,7 @@ export const ContextProvider = (props) => {
                 loading,
                 getCategories,
                 getProductsByCategory,
+                setCart,
             }}
         >
             {props.children}

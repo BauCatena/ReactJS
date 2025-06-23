@@ -19,7 +19,13 @@ function CartPage() {
     setLoading
   }, []);
 
-  const total = () => cart.reduce((acc, el) => acc + el.amount * el.price, 0);
+  const total = cart.reduce((acc, el) => {
+    const sizeKey = Object.keys(el.sizes)[0];
+    const sizeObj = el.sizes[sizeKey];
+    const price = sizeObj?.price || 0;
+    return acc + price * el.amount;
+  }, 0);
+
   if (loading) {
     setLoading(false)
     return (
@@ -36,46 +42,51 @@ function CartPage() {
         <p className="heading">Tu carrito está vacío, agrega productos para poder comprarlos</p>
       ) : (
         <div>
-        <div className="cart-product-container flex-row">
-          {cart.map(el => (
-            <div key={el.id} className="product-card" product={el}>
-              <div className="img-name">
-                <div className="img">
-                  {el.img}
-                  una imagen re piola
-                </div>
-                <div className="info">
-                  <p>{el.name}</p>
-                  <p>{el.description}</p>
-                  <div className="flex-column">
-                    <br />
-                    <p>Valor por unidad: $ {el.price}</p>
-                    <p>Cantidad: {el.amount} unidad/es</p>
-                    <p>Total: $ {el.price * el.amount}</p>
-                    <p>Unidades disponibles: {el.stock}</p>
-                  </div>
-                </div>
-              </div>
-              <div className="flex-row center">
-                <div className="flex-column">
-                  <ProductCounter
-                    stock={el.stock}
-                    counter={el.amount}
-                    onChange={(newCounter) => {
-                      updateCartItemQuantity(el.id, newCounter);
-                    }}
-                  />
-                  <button className="button" onClick={() => {
-                    removeFromCart(el.id)
-                  }}>Eliminar producto</button>
-                </div>
-              </div>
-            </div>
-          ))}
+        <div className="cart-product-container flex-column">
+          {cart.map(el => {
+  // Obtén la clave del tamaño (ej: "30" o "100")
+  const sizeKey = Object.keys(el.sizes)[0];
+  const sizeObj = el.sizes[sizeKey];
+  const { price, stock } = sizeObj || {};
+  return (
+    <div key={el.id} className="product-card" product={el}>
+      <div className="img-name">
+        <div className="img">
+          <img src={el.img} alt={el.name} />
+        </div>
+        <div className="info">
+          <p>{el.name}</p>
+          <p>{el.description}</p>
+          <div className="flex-column">
+            <br />
+            <p>Valor por unidad: $ {price}</p>
+            <p>Cantidad: {el.amount} unidad/es de {sizeKey} ml</p>
+            <p>Total: $ {price * el.amount}</p>
+            <p>Unidades disponibles: {stock}</p>
+          </div>
+        </div>
+      </div>
+      <div className="flex-row center">
+        <div className="flex-column">
+          <ProductCounter
+            stock={stock}
+            counter={el.amount}
+            onChange={(newCounter) => {
+              updateCartItemQuantity(el.id, newCounter);
+            }}
+          />
+          <button className="button" onClick={() => {
+            removeFromCart(el.id)
+          }}>Eliminar producto</button>
+        </div>
+      </div>
+    </div>
+  );
+})}
         </div>
         <div>
           <div className="final-step">
-            <p className="price">Total: $ {total()}</p>
+            <p className="price">Total: $ {total}</p>
             <Link to="/newOrder">
               <button className="button" >Finalizar compra</button>
             </Link>

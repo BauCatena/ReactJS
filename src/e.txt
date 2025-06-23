@@ -1,0 +1,8 @@
+agregué todos los productos que tengo
+cambie toda la lógica de como se manejan los productos en cards, detail, counter y carrito (modificaciones en la función y página). Ver cómo muestro el total de la compra
+modifiqué el loader para que esté centrado
+bug de las cards solucionado
+la fuente pasa de ser de 1rem a 1.2rem
+el carrito se vacia después de una order
+el correo llega en condiciones
+se puede pedir productos por tamaños
