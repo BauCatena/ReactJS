@@ -1,18 +1,17 @@
-import "./NewOrder.scss"
+import "./NewOrder.scss";
 import { useNavigate } from "react-router";
 import { useAppContext } from "../../context/context";
 import { useEffect, useState } from "react";
-import { db } from "../../fireBaseConfig";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-import emailjs from '@emailjs/browser';
+import { supabase } from "../../lib/supabase";
+import axios from "axios";
 
 function NewOrder() {
   const { cart, user, showNotification, setCart } = useAppContext();
   const navigate = useNavigate();
 
   const [direccion, setDireccion] = useState("");
-  const [altura, setAltura] = useState(""); // Nuevo estado para altura
-  const [telefono, setTelefono] = useState(""); // Nuevo estado para teléfono
+  const [altura, setAltura] = useState("");
+  const [telefono, setTelefono] = useState("");
   const [metodoPago, setMetodoPago] = useState("efectivo");
   const [pedidoRealizado, setPedidoRealizado] = useState(false);
 
@@ -29,7 +28,7 @@ function NewOrder() {
         navigate("/products");
       }, 1800);
     }
-  },[]);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -39,7 +38,6 @@ function NewOrder() {
     }
 
     const productosLimpios = cart.map(item => {
-      // Asegúrate de que los campos importantes existan y no sean undefined
       const sizeKey = Object.keys(item.sizes)[0];
       const sizeObj = item.sizes[sizeKey] || {};
       return {
@@ -54,33 +52,37 @@ function NewOrder() {
     });
 
     const nuevoPedido = {
-      uid: user.uid,
+      user_id: user.id,       // En Supabase user id es 'id' (UUID)
       email: user.email,
       direccion,
       altura,
       telefono,
-      metodoPago,
+      metodo_pago: metodoPago,
       productos: productosLimpios,
       estado: "pendiente",
-      fecha: serverTimestamp(),
+      fecha_creacion: new Date().toISOString(), // timestamp en ISO string
+      entrega_especial: false // por ahora false
     };
-    console.log(nuevoPedido)
+
     try {
-      await addDoc(collection(db, "orders"), nuevoPedido);
+      const { data, error } = await supabase
+        .from("orders")
+        .insert([nuevoPedido]);
+
+      if (error) throw error;
+
       setPedidoRealizado(true);
       setTimeout(() => {
         setCart([]);
       }, 5000);
       showNotification("Pedido realizado con éxito", 1300);
 
-      
       // Genera el string de productos para el correo
       const productosCorreo = cart.map(item => {
         const sizeKey = Object.keys(item.sizes)[0];
         const sizeObj = item.sizes[sizeKey] || {};
         return `${item.name} (${sizeKey}ml) x${item.amount} - $${sizeObj.price * item.amount}`;
       }).join('\n');
-
 
       // Calcula el total real del carrito
       const total = cart.reduce((acc, item) => {
@@ -89,39 +91,48 @@ function NewOrder() {
         return acc + (sizeObj.price || 0) * (item.amount || 1);
       }, 0);
 
-      emailjs.send("IlCircoloNero", "orderReady", {
-        to_name: user.displayName || "Cliente",
-        to_email: user.email,
-        fecha: new Date().toLocaleString(),
-        direccion: direccion,
-        productos: productosCorreo,
-        total: `$${total}`,
-        logo1: 'https://i.imgur.com/xzN9C0R.png'
-        }, "s04wjrSg3KkjxJJS4")
-          .catch((error) => {
-            console.error("Error al enviar correo:", error);
-            });
+      const adminEmailPayload = {
+        sender: { name: "Il Circolo Nero", email: "noreply@ilcircolonero.com" },
+        to: [{ email: "bauticatena@gmail.com" }],
+        subject: "Nuevo pedido recibido",
+        htmlContent: `
+          <h3>Nuevo pedido de ${user.user_metadata?.full_name || user.email}:</h3>
+          <p><strong>Email:</strong> ${user.email}</p>
+          <p><strong>Dirección:</strong> ${direccion} ${altura}</p>
+          <p><strong>Teléfono:</strong> ${telefono}</p>
+          <p><strong>Método de pago:</strong> ${metodoPago}</p>
+          <p><strong>Total:</strong> $${total}</p>
+          <p><strong>Productos:</strong><br/>${productosCorreo.replace(/\n/g, '<br/>')}</p>
+          <p>Fecha: ${new Date().toLocaleString()}</p>
+        `
+      };
 
-    } catch{
+      await axios.post("https://api.brevo.com/v3/smtp/email", adminEmailPayload, {
+        headers: {
+          "api-key": "", // 👈 REEMPLAZA CON TU API KEY
+          "Content-Type": "application/json"
+        }
+      });
+
+    } catch (error) {
+      console.error(error);
       showNotification("Hubo un error al realizar tu pedido");
     }
-
   };
+
   return (
     <div className="main">
       {user && cart?.length > 0 ? (
-        <div  className="order">
+        <div className="order">
           {!pedidoRealizado ? (
             <>
               <p className="heading">Muchas gracias por la compra</p>
-              <p>
-                Odiamos las formalidades tanto como usted. Pero sin esto no podrá recibir su compra
-              </p>
-              <div className="form-container">  
-              <form onSubmit={handleSubmit} className="form">
+              <p>Odiamos las formalidades tanto como usted. Pero sin esto no podrá recibir su compra</p>
+              <div className="form-container">
+                <form onSubmit={handleSubmit} className="form">
                   <input
-                  className="input"
-                  name="direction"
+                    className="input"
+                    name="direction"
                     type="text"
                     value={direccion}
                     onChange={(e) => setDireccion(e.target.value)}
@@ -147,29 +158,27 @@ function NewOrder() {
                     placeholder="Teléfono"
                   />
                   <select
-                  className="input"
-                  name="payment"
+                    className="input"
+                    name="payment"
                     value={metodoPago}
                     onChange={(e) => setMetodoPago(e.target.value)}
                   >
                     <option value="efectivo">Efectivo</option>
-                    <option value="tarjeta" disabled>
-                      Tarjeta (próximamente)
-                    </option>
+                    <option value="tarjeta" disabled>Tarjeta (próximamente)</option>
                   </select>
-                <button className="button" type="submit">Confirmar pedido</button>
-              </form>
+                  <button className="button" type="submit">Confirmar pedido</button>
+                </form>
               </div>
             </>
           ) : (
             <div>
-                <p className="heading">Un placer hacer negocios con usted, {user?.displayName || "usuario"}. Il Circolo Nero se encargará de ahora en más</p>
-                <p className="text">En instantes le llegarán los detalles del envio a su correo</p>
+              <p className="heading">Un placer hacer negocios con usted, {user.user_metadata?.full_name || user.email}.</p>
+              <p className="text">En instantes le llegarán los detalles del envío a su correo</p>
             </div>
           )}
         </div>
       ) : (
-        <></> // ya se redirige desde el useEffect
+        <></>
       )}
     </div>
   );

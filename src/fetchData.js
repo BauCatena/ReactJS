@@ -1,38 +1,14 @@
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "./fireBaseConfig";
+import { supabase } from './lib/supabase';
 
 
-export const fetchData = async ()=>{
+export async function fetchData() {
+  try {
+    const { data, error } = await supabase.from("products").select("*");
+    if (error) throw error;
 
-            let cachedData = null;
-            let localData = localStorage.removeItem("firedataBase")
-            localData = localStorage.getItem("firedataBase")
-            
-            if (cachedData) {
-                
-                return cachedData;
-              } else if(localData){
-                cachedData = JSON.parse(localData);
-                
-                return cachedData;
-
-            } else{
-
-                try {
-                    const querySnapshot = await getDocs(collection(db, "products"))
-
-                    const docsData = querySnapshot.docs.map(el =>({ 
-                        id: el.id,
-                        ...el.data()
-                    }))
-
-                    localStorage.setItem("firedataBase", JSON.stringify(docsData))
-                    
-                    return docsData;
-                }catch(err){
-                    console.error(err);
-                    return(null)
-                }
-            }
-        }
-           
+    return data;
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    return [];
+  }
+}

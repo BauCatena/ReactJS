@@ -6,3 +6,7 @@ la fuente pasa de ser de 1rem a 1.2rem
 el carrito se vacia después de una order
 el correo llega en condiciones
 se puede pedir productos por tamaños
+----------------------------------------
+2/7
+migro lógica de firebase a supabase
+supabase >> firebase

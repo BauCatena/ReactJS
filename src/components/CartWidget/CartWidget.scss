@@ -1,20 +1,39 @@
 @use "/src/vars/vars" as vars;
-.nav-container{
-    .nav{
-        @include vars.flex-row;
-        justify-content: space-around;
-        margin-bottom: 10px;
 
+.nav-container {
+  max-width: 100%;
+
+  .nav {
+    @include vars.flex-row;
+    justify-content: space-evenly; // O usa space-between si prefieres
+    align-items: center;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+
+    li {
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    .nav-element{
-        font-size: 1.3rem;
-        background-color: vars.$gold;
-        color: vars.$gray;
-        border-radius: 5%;
-        &:hover{
-            background-color: vars.$light-gold;
-        }
+
+    .mobile {
+      display: none;
     }
+  }
+
+  .nav-element {
+    font-size: 1.3rem;
+    background-color: vars.$gold;
+    color: vars.$gray;
+    border-radius: 5%;
+
+    &:hover {
+      background-color: vars.$light-gold;
+    }
+  }
 }
 
 @media screen and (max-width: 500px) {
@@ -26,7 +45,15 @@
     border-bottom: none;
     border-top: 1px solid vars.$gold;
     height: auto;
-    width: 100%;
-      z-index: 9999;
+    max-width: 100%;
+    z-index: 9999;
+
+    .desktop {
+      display: none;
+    }
+
+    .mobile {
+      display: inline-block !important;
+    }
   }
 }
