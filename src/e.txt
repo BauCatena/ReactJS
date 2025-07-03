@@ -10,3 +10,6 @@ se puede pedir productos por tamaños
 2/7
 migro lógica de firebase a supabase
 supabase >> firebase
+
+frase buena: supercalifragilisticoespialidoso
+bibiribabidibu
