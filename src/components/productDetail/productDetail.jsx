@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import Loader from "../loader/loader"
 import { Link, useParams } from "react-router"
 import { fetchData } from "../../fetchData"
-import NotFound from "../notFound/notfound"
+import NotFound from "../notFound/notFound"
 import { useAppContext } from "../../context/context"
 
 function ProductDetail() {

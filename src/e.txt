@@ -13,3 +13,5 @@ supabase >> firebase
 
 frase buena: supercalifragilisticoespialidoso
 bibiribabidibu
+
+cambie notfound a notFound
