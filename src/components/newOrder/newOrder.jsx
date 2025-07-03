@@ -1,4 +1,4 @@
-import "./NewOrder.scss";
+import "./newOrder.scss";
 import { useNavigate } from "react-router";
 import { useAppContext } from "../../context/context";
 import { useEffect, useState } from "react";
