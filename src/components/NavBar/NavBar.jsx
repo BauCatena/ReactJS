@@ -14,7 +14,7 @@ function NavBar(){
                 <div className="account-container">
                     <button className="icon account" onClick={()=>navigate("/myAccount")}><img className="account-icon" src="/assets/incognito.svg" alt="cuenta"/></button>
                     <div className="account-info">
-                        <p className="user">{user?.displayName || "Usuario"}</p>
+                        <p className="user">{user?.user_metadata.username || "Usuario"}</p>
                         <p className="rank">Rango:</p>
                     </div>
                 </div>
