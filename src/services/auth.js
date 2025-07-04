@@ -44,3 +44,4 @@ export function onAuthChange(callback) {
     callback(session?.user || null);
   });
 }
+

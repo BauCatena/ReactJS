@@ -7,7 +7,9 @@ import {
   signOut,
   onAuthChange,
 } from '../../services/auth';
+import { useAdminGuard } from '/src/services/adminTools.js'
 import { useAppContext } from '../../context/context';
+import { useNavigate } from 'react-router';
 
 function MyAccount() {
   const [register, setRegister] = useState(false);
@@ -19,6 +21,8 @@ function MyAccount() {
   const [password, setPassword] = useState('');
 
   const { showNotification } = useAppContext();
+  const { isadmin } = useAdminGuard()
+  const navigate = useNavigate()
 
   useEffect(() => {
     const { data: authListener } = onAuthChange(setUser);
@@ -71,11 +75,14 @@ function MyAccount() {
 
   if (user) {
     return (
-      <div className="container">
-        <p>Bienvenido, {user.email}</p>
-        <button className="button" onClick={handleLogout}>
-          Cerrar sesión
-        </button>
+      <div className='main'>
+        <div className="container">
+          <p>Bienvenido, {user.email}</p>
+          <button className="button" onClick={handleLogout}>
+            Cerrar sesión
+          </button>
+          {isadmin ? <p>no</p> : <button className='button' onClick={()=> navigate('/admin')}>Panel de admin</button>}
+        </div>
       </div>
     );
   }

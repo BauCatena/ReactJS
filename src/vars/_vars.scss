@@ -1,6 +1,6 @@
 $light-gold: #f6e5b3;
 $gold:  #c4a767;
-$gray:  #151515;
+$gray:  rgb(21, 21, 21);
 $light-gray: rgb(164, 164, 164);
 
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400&display=swap');
@@ -148,3 +148,13 @@ input[type="number"] {
       font-size: 2rem ;
     }
  }
+.container{
+  display: flex;
+  flex-wrap: wrap;
+  width: 80%;
+  margin: 5%;
+  justify-content: center;
+  padding: 5%;
+  border: 2px solid $gold;
+  border-radius: 10px;
+}

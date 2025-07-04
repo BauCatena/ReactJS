@@ -2,7 +2,6 @@
 .header {
   @include vars.flex-column;
   border-bottom: 1px solid vars.$light-gold;
-
   .header-container {
     @include vars.flex-row;
     justify-content: space-between;

@@ -12,6 +12,9 @@ import { useAppContext } from "./context/context"
 import MyAccount from "./components/myAccount/myAccount"
 import Index from "./components/index"
 import Footer from "./components/footer/footer"
+import Admin from "./components/admin/admin"
+import AdminProduct from "./components/adminProduct/adminProduct"
+
 
 function AppContent() {
   const { notification } = useAppContext();
@@ -30,6 +33,8 @@ function AppContent() {
         <Route path="/newOrder" element={<NewOrder/>} />
         <Route path="/myAccount" element={<MyAccount/>}/>
         <Route path="/" element={<Index/>}/>
+        <Route path="/admin" element={<Admin/>}/>
+        <Route path="/admin/products" element={<AdminProduct/>}/>
       </Routes>
       <Footer/>
     </>
