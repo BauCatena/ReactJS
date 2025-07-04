@@ -1,4 +1,4 @@
-import './AdminProduct.scss';
+import './adminProduct.scss';
 import Loader from '../loader/loader';
 import { useState } from 'react';
 import { useAdminGuard } from '/src/services/adminTools.js';
