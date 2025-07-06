@@ -58,13 +58,22 @@ export const ContextProvider = (props) => {
 
   // 🛒 Carrito (igual que antes, o puedes mejorar sincronizando con Supabase)
 
-  function addToCart(product, amount, sizeKey) {
-    const sizeNumber = sizeKey === "big" ? 100 : 30;
-    const selectedSizeObj = { [sizeNumber]: product.sizes[sizeNumber] };
-    const newProduct = { ...product, amount, sizeKey, sizes: selectedSizeObj };
+  function addToCart(product, amount, selectedSize) {
+    if(!selectedSize) selectedSize = "30ml" ;
+    const sizeKey = selectedSize;
+    const price = sizeKey === "30ml" ? product.price_30ml : product.price_100ml;
+    const stock = sizeKey === "30ml" ? product.stock_30ml : product.stock_100ml;
+
+    const newProduct = {
+      ...product,
+      amount,
+      selectedSize: sizeKey,
+      price,
+      stock,
+    };
 
     const existingIndex = cart.findIndex(
-      el => el.id === product.id && el.sizeKey === sizeKey
+      el => el.id === product.id && el.selectedSize === sizeKey
     );
 
     if (existingIndex !== -1) {
@@ -77,6 +86,7 @@ export const ContextProvider = (props) => {
       setCart([...cart, newProduct]);
       showNotification("Producto agregado al carrito");
     }
+ 
   }
 
   const updateCartItemQuantity = (productId, newQuantity) => {

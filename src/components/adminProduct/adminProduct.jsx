@@ -78,7 +78,10 @@ function AdminProduct() {
         <p className='heading'>Lista de productos</p>
         <div>
           {data.map(el => (
-            <p className='products' key={el.id}>{el.name}</p>
+            <div className='products' key={el.id}>
+              <p className='product'>{el.name}</p>
+              <p className='product'>{el.dupe}</p>
+            </div>
           ))}
         </div>
 
@@ -107,7 +110,10 @@ function AdminProduct() {
             </div>
           </div>
         ) : (
-          <button className='button' onClick={() => setAdd(true)}>Añadir producto</button>
+          <div className='product-handler'>
+            <button className='button' onClick={() => setAdd(true)}>Añadir producto</button>
+            <button className='button'>Eliminar producto</button>
+          </div>
         )}
       </div>
     );

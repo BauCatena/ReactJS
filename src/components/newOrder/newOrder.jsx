@@ -8,6 +8,7 @@ import axios from "axios";
 function NewOrder() {
   const { cart, user, showNotification, setCart } = useAppContext();
   const navigate = useNavigate();
+  const apiKeyBrevo = import.meta.env.VITE_API_KEY;
 
   const [direccion, setDireccion] = useState("");
   const [altura, setAltura] = useState("");
@@ -52,16 +53,15 @@ function NewOrder() {
     });
 
     const nuevoPedido = {
-      user_id: user.id,       // En Supabase user id es 'id' (UUID)
-      email: user.email,
-      direccion,
-      altura,
-      telefono,
-      metodo_pago: metodoPago,
-      productos: productosLimpios,
-      estado: "pendiente",
-      fecha_creacion: new Date().toISOString(), // timestamp en ISO string
-      entrega_especial: false // por ahora false
+      user_id: user.id,      
+      user_email: user.email,
+      shipping_address: direccion,
+      height: altura,
+      phone_number: telefono,
+      payment_method: metodoPago,
+      status: "pendiente",
+      created_at: new Date().toISOString(), 
+      special_delivery: false
     };
 
     try {
@@ -74,6 +74,7 @@ function NewOrder() {
       setPedidoRealizado(true);
       setTimeout(() => {
         setCart([]);
+        navigate("/")
       }, 5000);
       showNotification("Pedido realizado con éxito", 1300);
 
@@ -92,7 +93,7 @@ function NewOrder() {
       }, 0);
 
       const adminEmailPayload = {
-        sender: { name: "Il Circolo Nero", email: "noreply@ilcircolonero.com" },
+        sender: { name: "Il Circolo Nero", email: "circoloneroprofumo@gmail.com" },
         to: [{ email: "bauticatena@gmail.com" }],
         subject: "Nuevo pedido recibido",
         htmlContent: `
@@ -109,7 +110,33 @@ function NewOrder() {
 
       await axios.post("https://api.brevo.com/v3/smtp/email", adminEmailPayload, {
         headers: {
-          "api-key": "", // 👈 REEMPLAZA CON TU API KEY
+          "api-key": apiKeyBrevo,
+          "Content-Type": "application/json"
+        }
+      });
+
+      // Prepara los datos para el correo al usuario
+      const userEmailPayload = {
+        sender: { name: "Il Circolo Nero", email: "circoloneroprofumo@gmail.com" },
+        to: [{ email: user.email }],
+        subject: "Pedido Confirmado",
+        templateID: 1,
+        params: {
+          nombre: user.user_metadata?.full_name || user.email,
+          direccion: `${direccion} ${altura}`,
+          telefono: telefono,
+          metodoPago: metodoPago,
+          total: total,
+          productos: productosCorreo.replace(/\n/g, '<br/>'),
+          fecha: new Date().toLocaleString()
+        }
+      };
+
+      // https://my.brevo.com/template/.2niJnDoA3Umr2tvJ5D5w8DzZ2.59
+
+      await axios.post("https://api.brevo.com/v3/smtp/email", userEmailPayload, {
+        headers: {
+          "api-key": apiKeyBrevo,
           "Content-Type": "application/json"
         }
       });

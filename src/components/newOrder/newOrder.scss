@@ -4,6 +4,8 @@
         font-size: 1.3rem;
         text-align: center;
         padding: 2rem;
+        @include vars.center;
+        @include vars.flex-column;
         .form-container{
             display: flex;
             justify-content: center;

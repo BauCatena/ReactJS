@@ -15,3 +15,14 @@ frase buena: supercalifragilisticoespialidoso
 bibiribabidibu
 
 cambie notfound a notFound
+----------------------------------------
+4/7
+funciones de admin al agregar productos
+correción de mayúsculas a minúsculas, gracias chatgpt >:(
+debo cambiar la forma en la que ven los productos en itemContainer pq no puede leer los precios
+y probablemente pase con otros atributos
+-----------------------------------------
+6/7
+ahora si funciona lo de los atributos de los productos
+se envían correos al admin pero sin los valores, lo mismo con los usuarios
+cambio en la lógica de cartpage y funciona correctamente

@@ -6,7 +6,7 @@ import { Link } from "react-router";
 import ProductCounter from "../productCounter/productCounter.jsx";
 
 function CartPage() {
-  const { cart, updateCartItemQuantity, removeFromCart} = useAppContext();
+  const { cart, updateCartItemQuantity, removeFromCart, addToCart } = useAppContext();
   const [loading, setLoading] = useState(true);
   const [empty, setEmpty] = useState(true);
 
@@ -20,9 +20,8 @@ function CartPage() {
   }, []);
 
   const total = cart.reduce((acc, el) => {
-    const sizeKey = Object.keys(el.sizes)[0];
-    const sizeObj = el.sizes[sizeKey];
-    const price = sizeObj?.price || 0;
+    const sizeKey = el.selectedSize;
+    const price = sizeKey === "100ml" ? el.price_100ml : el.price_30ml;
     return acc + price * el.amount;
   }, 0);
 
@@ -44,15 +43,14 @@ function CartPage() {
         <div>
         <div className="cart-product-container flex-column">
           {cart.map(el => {
-  // Obtén la clave del tamaño (ej: "30" o "100")
-  const sizeKey = Object.keys(el.sizes)[0];
-  const sizeObj = el.sizes[sizeKey];
-  const { price, stock } = sizeObj || {};
+
+    const price = el.selectedSize === "30ml" ? el.price_30ml : el.price_100ml;
+    const stock = el.selectedSize === "30ml" ? el.stock_30ml : el.stock_100ml;
   return (
-    <div key={el.id} className="product-card" product={el}>
+    <div key={el.id + el.selectedSize} className="product-card">
       <div className="img-name">
         <div className="img">
-          <img src={el.img} alt={el.name} />
+          <img src={el.image_url} alt={el.name} />
         </div>
         <div className="info">
           <p>{el.name}</p>
@@ -60,7 +58,7 @@ function CartPage() {
           <div className="flex-column">
             <br />
             <p>Valor por unidad: $ {price}</p>
-            <p>Cantidad: {el.amount} unidad/es de {sizeKey} ml</p>
+            <p>Cantidad: {el.amount} unidad/es de {el.selectedSize}</p>
             <p>Total: $ {price * el.amount}</p>
             <br />
             <p>Unidades disponibles: {stock}</p>
@@ -87,7 +85,7 @@ function CartPage() {
         </div>
         <div>
           <div className="final-step">
-            <p className="price">Total: $ {total}</p>
+            <p className="price">Total: $ {total  }</p>
             <Link to="/newOrder">
               <button className="button" >Finalizar compra</button>
             </Link>

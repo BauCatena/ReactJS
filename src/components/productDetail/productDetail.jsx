@@ -11,29 +11,33 @@ function ProductDetail() {
     const { id } = useParams()
     const [loading, setLoading] = useState(true);
     const [product, setProduct] = useState(0)
-    const [sizes, setSizes] = useState(0)
     const [counter, setCounter] = useState(1)
-    const [selectedSize, setSelectedSize] = useState("small")
+    const [size, setSize] = useState("30ml")
     const {addToCart} = useAppContext()
 
     useEffect(() => {
         fetchData().then(response => {
-            const productChosen = response.find(el => el.id === parseInt(id));
+            const productChosen = response.find(el => el.id === id);
             setProduct(productChosen);
-            if (productChosen && productChosen.sizes) {
-                setSizes({
-                    small: productChosen.sizes[30] || null,
-                    big: productChosen.sizes[100] || null
-                });
-            }
             setLoading(false);
         });
     }, [id])
-    
-    const { name, description, dupe, imageUrl, longevity, projection, rating, similarity } = product;
-    const currentSize = sizes[selectedSize] || {};
-    
-    
+
+    const { name, image_url, description, dupe, longevity, projection, price_30ml, stock_30ml, stock_100ml, price_100ml } = product
+
+    function sizeValues(size){
+        let price = 0
+        let stock = 0
+        if(size == "30ml"){
+            price = price_30ml
+            stock = stock_30ml
+        }else{
+            price = price_100ml
+            stock = stock_100ml
+        }
+        return {price, stock}
+    }
+
     return (
         loading ?
         <div className="loader-container">
@@ -46,7 +50,7 @@ function ProductDetail() {
             <div className="card-detail">
                 <div className="card-detail2">
                     <div className="props-container">
-                        <img className="product-icon container" src={imageUrl} alt="product" />
+                    <img className="product-icon" src={image_url} alt="product" />
                         <p> {name} </p>
                         <br />
                         <p> {description} </p>
@@ -55,33 +59,32 @@ function ProductDetail() {
                         <br />
                         <p>Duración: {longevity}</p>
                         <p>Estela: {projection}</p>
-                        <p>Similitud: {similarity} de 5</p>
                         <br />
-                        <p>Puntuación: {rating} estrellas</p>
-                        <p>Precio: $ { currentSize.price } </p>
+                        <p>Precio: $ {sizeValues(size).price } </p>
                         <br />
-                        <p>Quedan { currentSize.stock } unidades</p>
+                        <p>Quedan { sizeValues(size).stock } unidades</p>
                     </div>
                     <div className="buttons-container">
                         <div className="flex-row">
                             <select
                               name="sizes"
                               className="input"
-                              value={selectedSize}
-                              onChange={e => {setSelectedSize(e.target.value)}}
+                              
+                              onChange={e => {setSize(e.target.value)}}
                             >
-                              <option value="small">30ml</option>
-                              <option value="big">100ml</option>
+                              <option value="30ml">30ml</option>
+                              <option value="100ml">100ml</option>
                             </select>
                             <ProductCounter
-                              stock={currentSize.stock}
+                              
                               counter={counter}
                               onChange={setCounter}
                             />
                         </div>
+                        
                         <div className="button-function-container">
-                            {currentSize.stock > 0 ?  
-                                <button onClick={() => { addToCart(product, counter, selectedSize) }} className="button" role="button">
+                            {  sizeValues(size).stock > 0 ?
+                                <button onClick={() => { addToCart(product, counter, size) }} className="button" role="button">
                                     Agregar al carrito
                                 </button>
                                 :
