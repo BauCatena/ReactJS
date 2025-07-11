@@ -26,3 +26,9 @@ y probablemente pase con otros atributos
 ahora si funciona lo de los atributos de los productos
 se envían correos al admin pero sin los valores, lo mismo con los usuarios
 cambio en la lógica de cartpage y funciona correctamente
+------------------------------------------
+11/7
+el sistema de correo funciona como corresponde
+he estado ocupado con otras cosas (soy un flojo también)
+próximamente quiero implementar el sistema de rangos
+luego debo actualizar las cantidades según si compran o no

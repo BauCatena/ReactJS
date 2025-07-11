@@ -39,18 +39,10 @@ function NewOrder() {
     }
 
     const productosLimpios = cart.map(item => {
-      const sizeKey = Object.keys(item.sizes)[0];
-      const sizeObj = item.sizes[sizeKey] || {};
-      return {
-        id: item.id,
-        name: item.name,
-        amount: item.amount,
-        size: sizeKey,
-        price: sizeObj.price || 0,
-        stock: sizeObj.stock || 0,
-        img: item.img || "",
-      };
-    });
+      const price = item.selectedSize === "30ml" ? item.price_30ml : item.price_100ml;
+      return `• ${item.name} - ${item.amount}u de ${item.selectedSize} Precio: - $${price}`;
+    }).join('<br>');
+
 
     const nuevoPedido = {
       user_id: user.id,      
@@ -67,7 +59,7 @@ function NewOrder() {
     try {
       const { data, error } = await supabase
         .from("orders")
-        .insert([nuevoPedido]);
+        // .insert([nuevoPedido]);
 
       if (error) throw error;
 
@@ -80,16 +72,15 @@ function NewOrder() {
 
       // Genera el string de productos para el correo
       const productosCorreo = cart.map(item => {
-        const sizeKey = Object.keys(item.sizes)[0];
-        const sizeObj = item.sizes[sizeKey] || {};
-        return `${item.name} (${sizeKey}ml) x${item.amount} - $${sizeObj.price * item.amount}`;
+      const price = item.selectedSize === "30ml" ? item.price_30ml : item.price_100ml;
+        return `${item.name} (${item.selectedSize}) x${item.amount} - $${price * item.amount}`;
       }).join('\n');
 
-      // Calcula el total real del carrito
-      const total = cart.reduce((acc, item) => {
-        const sizeKey = Object.keys(item.sizes)[0];
-        const sizeObj = item.sizes[sizeKey] || {};
-        return acc + (sizeObj.price || 0) * (item.amount || 1);
+  
+      const total = cart.reduce((acc, el) => {
+        const sizeKey = el.selectedSize;
+        const price = sizeKey === "100ml" ? el.price_100ml : el.price_30ml;
+        return acc + price * el.amount;
       }, 0);
 
       const adminEmailPayload = {
@@ -122,12 +113,12 @@ function NewOrder() {
         subject: "Pedido Confirmado",
         templateID: 1,
         params: {
-          nombre: user.user_metadata?.full_name || user.email,
+          to_name: user.user_metadata?.username|| user.email,
           direccion: `${direccion} ${altura}`,
           telefono: telefono,
           metodoPago: metodoPago,
           total: total,
-          productos: productosCorreo.replace(/\n/g, '<br/>'),
+          productos: productosLimpios,
           fecha: new Date().toLocaleString()
         }
       };
